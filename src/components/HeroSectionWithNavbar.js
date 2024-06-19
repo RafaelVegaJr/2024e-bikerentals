@@ -63,7 +63,7 @@ export default function HeroSectionWithNavbar() {
               to="/home"
               role="button"
             >
-              Get Some
+              Lets Ride
             </Link>
           </div>
         </div>

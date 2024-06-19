@@ -1,7 +1,7 @@
 // src/components/ImageSection.js
 import React from "react";
 import "./ImageSection.css"; // Import the CSS for this component
-import Image2 from "../images/Image2.jpg";
+import Image2 from "../images/Image13.jpg";
 import Image3 from "../images/Image3.jpg";
 
 const ImageSection = () => {
