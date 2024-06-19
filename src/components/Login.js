@@ -1,9 +1,11 @@
+// src/components/Login.js
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "../axiosConfig";
+import Cookies from "js-cookie";
 import "./Login.css"; // Import the CSS file
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -17,7 +19,7 @@ const Login = (props) => {
         username: email,
         password,
       });
-      localStorage.setItem("token", response.data.token);
+      Cookies.set("token", response.data.token, { expires: 1 }); // Set the token cookie with a 1-day expiry
       navigate("/profile"); // Redirect to profile page
     } catch (error) {
       console.error("Error logging in:", error);
