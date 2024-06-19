@@ -1,0 +1,50 @@
+/* src/components/ImageSection.css */
+.image-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the start of the container */
+  margin: 20px 0;
+}
+
+.image-container {
+  flex: 1;
+  margin: 0 10px;
+  position: relative;
+  overflow: hidden;
+  max-width: 42%; /* Ensure images don't take more than 50% of the container width */
+}
+
+.image-container-left {
+  margin-top: 30px; /* Move the left image up by 30px */
+}
+
+.image-container-right {
+  margin-top: -630px; /* Move the right image down by 30px */
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .image-section {
+    flex-direction: column;
+  }
+
+  .image-container {
+    width: 100%;
+    margin: 10px 0;
+    max-width: 100%; /* Make sure images take full width on smaller screens */
+  }
+
+  .image-container-left,
+  .image-container-right {
+    margin-top: 0; /* Remove top margins for smaller screens */
+  }
+}

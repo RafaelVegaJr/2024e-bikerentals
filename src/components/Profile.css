@@ -1,0 +1,55 @@
+.profile-mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 80px; /* Ensures the container is spaced below the navbar */
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-navbar {
+  width: 100%;
+  background: black;
+  padding: 10px 0;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.profile-nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.profile-nav-link:hover {
+  color: cornflowerblue;
+}
+
+.profile-contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6); /* Optional: to make text more readable */
+  border-radius: 8px;
+  margin-top: 50px; /* Adjust this value to move the formContainer up */
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  margin-top: auto;
+}
