@@ -1,15 +1,25 @@
+// RentalForm.js
 import React, { useState } from "react";
 import "./Form.css"; // Import the CSS file
+import axios from "axios";
 
 const RentalForm = () => {
   const [name, setName] = useState("");
   const [bike, setBike] = useState("Mountain Bike");
   const [rentalDays, setRentalDays] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your submit logic here
-    console.log({ name, bike, rentalDays });
+    try {
+      const response = await axios.post("http://localhost:5000/api/rentals", {
+        name,
+        bike,
+        rentalDays,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error submitting rental:", error);
+    }
   };
 
   return (
