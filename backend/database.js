@@ -15,6 +15,7 @@ const sequelize = new Sequelize(
         trustServerCertificate: true, // Change to false for production environments with a valid SSL certificate
       },
     },
+    logging: console.log, // Log SQL queries
   }
 );
 

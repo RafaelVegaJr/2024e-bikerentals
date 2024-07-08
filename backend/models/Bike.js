@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../database"); // Ensure the correct path to database.js
+const sequelize = require("../database");
 
 const Bike = sequelize.define(
   "Bike",
@@ -15,14 +15,21 @@ const Bike = sequelize.define(
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       allowNull: false,
+    },
+    availability_status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    type: {
+      type: DataTypes.STRING,
     },
   },
   {
+    tableName: "Bikes",
     timestamps: false,
   }
 );

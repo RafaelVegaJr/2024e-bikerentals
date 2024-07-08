@@ -7,11 +7,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const sequelize = require("./database");
-const Delivery = require("./models/Delivery");
-const User = require("./models/User"); // Ensure you have this line to import the User model
+
+// Add logs to ensure paths and files are correct
+console.log("Loading routes...");
+
+const rentalsAndDeliveriesRouter = require("./routes/rentals_and_deliveries");
 const usersRouter = require("./routes/users");
 const bikesRouter = require("./routes/bikes");
-const deliveriesRouter = require("./routes/deliveries");
 
 // Middleware
 app.use(
@@ -23,9 +25,11 @@ app.use(
 app.use(express.json());
 
 // Routes
+app.use("/api/rentals_and_deliveries", rentalsAndDeliveriesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/bikes", bikesRouter);
-app.use("/api/deliveries", deliveriesRouter);
+
+console.log("Routes loaded successfully");
 
 // Sync the database
 sequelize.sync({ alter: false }).then(() => {

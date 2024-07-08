@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -7,7 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
-import RentalAndDeliveryForm from "./components/RentalAndDeliveryForm";
+import UnifiedForm from "./components/UnifiedForm";
 import Profile from "./components/Profile";
 
 function App() {
@@ -15,14 +14,13 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="/home" />} />{" "}
-          {/* Redirect root to /home */}
+          <Route index element={<Navigate to="/home" />} />
           <Route path="home" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route
-            path="rent_and_delivery"
-            element={<ProtectedRoute component={RentalAndDeliveryForm} />}
+            path="unified-form"
+            element={<ProtectedRoute component={UnifiedForm} />}
           />
           <Route
             path="profile"

@@ -1,11 +1,21 @@
+// routes/bikes.js
 const express = require("express");
 const router = express.Router();
-const Bike = require("../models/Bike"); // Ensure the correct path to Bike.js
+const Bike = require("../models/Bike");
 
 // Get all bikes
 router.get("/", async (req, res) => {
   try {
-    const bikes = await Bike.findAll();
+    const bikes = await Bike.findAll({
+      attributes: [
+        "id",
+        "name",
+        "description",
+        "price",
+        "availability_status",
+        "type",
+      ],
+    });
     res.json(bikes);
   } catch (error) {
     console.error("Error fetching bikes:", error);
