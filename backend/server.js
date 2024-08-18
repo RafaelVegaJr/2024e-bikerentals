@@ -8,7 +8,6 @@ const port = process.env.PORT || 5000;
 
 const sequelize = require("./database");
 
-// Add logs to ensure paths and files are correct
 console.log("Loading routes...");
 
 const rentalsAndDeliveriesRouter = require("./routes/rentals_and_deliveries");

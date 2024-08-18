@@ -1,0 +1,16 @@
+/* src/components/ConfirmationPage.css */
+.confirmation-page {
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.confirmation-page h1 {
+  font-size: 2em;
+  color: #4caf50;
+}
+
+.confirmation-page p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}

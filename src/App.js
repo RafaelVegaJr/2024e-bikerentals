@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -9,6 +8,8 @@ import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RentalAndDeliveryForm from "./components/RentalAndDeliveryForm";
 import Profile from "./components/Profile";
+import SchedulingPage from "./components/SchedulingPage";
+import ConfirmationPage from "./components/ConfirmationPage";
 
 function App() {
   return (
@@ -28,6 +29,11 @@ function App() {
             path="profile"
             element={<ProtectedRoute component={Profile} />}
           />
+          {/* Redirect the /book path to the bike list on the home page */}
+          <Route path="book" element={<Navigate to="/home#bike-list" />} />
+          <Route path="schedule/:bikeId" element={<SchedulingPage />} />{" "}
+          {/* SchedulingPage with bikeId */}
+          <Route path="confirmation" element={<ConfirmationPage />} />
         </Route>
       </Routes>
     </div>

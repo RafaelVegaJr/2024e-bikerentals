@@ -1,19 +1,24 @@
-// src/components/NavbarLinks.js
 import React from "react";
-import { Link } from "react-router-dom";
 
 const NavbarLinks = () => {
+  const scrollToBikes = () => {
+    document.getElementById("bike-list").scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
-      <Link className="nav-link" to="/home">
+      <a className="nav-link" href="#home">
         Home
-      </Link>
-      <Link className="nav-link" to="/login">
+      </a>
+      <a className="nav-link" href="#login">
         Login
-      </Link>
-      <Link className="nav-link" to="/register">
+      </a>
+      <a className="nav-link" href="#register">
         Register
-      </Link>
+      </a>
+      <a className="nav-link" href="#bike-list" onClick={scrollToBikes}>
+        Book Now
+      </a>
     </>
   );
 };

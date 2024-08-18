@@ -18,7 +18,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
     "mssql": "^8.1.0",
-    "mysql2": "^3.10.0",
+    "mysql2": "^3.11.0",
     "sequelize": "^6.37.3",
     "tedious": "^18.2.0"
   },

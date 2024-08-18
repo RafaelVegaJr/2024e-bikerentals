@@ -63,8 +63,9 @@ router.post(
     body("email").isEmail().withMessage("Valid email is required"),
     body("phone")
       .optional()
-      .isMobilePhone()
-      .withMessage("Invalid phone number"),
+      .notEmpty()
+      .withMessage("Phone number is required if provided"),
+
     body("role").optional().isIn(["user", "admin"]).withMessage("Invalid role"),
   ],
   async (req, res) => {

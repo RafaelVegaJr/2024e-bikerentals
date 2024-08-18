@@ -1,7 +1,6 @@
 // src/components/Home.js
 import React from "react";
 import BikeList from "./BikeList";
-import RentalAndDeliveryForm from "./RentalAndDeliveryForm";
 import ImageSection from "./ImageSection";
 import AboutSection from "./AboutSection";
 import "./Home.css";
@@ -20,7 +19,6 @@ const Home = () => {
         <ImageSection />
         <div className="home-fade-in-section"></div>
         <BikeList />
-        <RentalAndDeliveryForm />
       </div>
       <footer className="home-footer">
         <p>&copy; 2024 E-Bike Rentals. All Rights Reserved.</p>
