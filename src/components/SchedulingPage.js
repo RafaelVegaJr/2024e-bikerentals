@@ -36,7 +36,11 @@ const SchedulingPage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Rental and delivery scheduled successfully:", data);
-        navigate("/confirmation");
+
+        // Pass the rental and delivery data to the confirmation page
+        navigate("/confirmation", {
+          state: { data },
+        });
       } else {
         console.error(
           "Failed to schedule rental and delivery:",

@@ -7,13 +7,18 @@ const ConfirmationPage = () => {
   const navigate = useNavigate();
   const { state } = location;
 
+  console.log("Location state:", state); // Log the state to see what data is passed
+
   if (!state) {
     // If there's no state, redirect back to the home page or an error page
+    console.log("No state found, redirecting to home...");
     navigate("/home");
     return null;
   }
 
   const { data } = state;
+
+  console.log("Data in confirmation page:", data); // Log the data to ensure it's available
 
   return (
     <div className="confirmation-page">
