@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { getDeliveryFee } from "../utils/deliveryUtils"; // Correct import statement
 import "./SchedulingPage.css";
 
 const SchedulingPage = () => {
-  const { bikeId } = useParams(); // Get bikeId from the URL params
+  const { bikeId } = useParams();
+  const numericBikeId = Number(bikeId);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [dropOffAddress, setDropOffAddress] = useState("");
+  const [dropOffCity, setDropOffCity] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Date:", date);
-    console.log("Time:", time);
-    console.log("Bike ID:", bikeId); // Log bikeId to ensure it's being used
+
+    const deliveryFee = getDeliveryFee(dropOffCity);
+
+    console.log({
+      bike: numericBikeId,
+      rentalDays: 1,
+      deliveryDate: date,
+      deliveryTime: time,
+      name,
+      address,
+      dropOffAddress,
+      dropOffCity,
+      deliveryFee,
+    });
 
     try {
       const response = await fetch(
@@ -23,12 +40,15 @@ const SchedulingPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            bike: bikeId, // Use the bikeId instead of the bike name
-            rentalDays: 1, // Assuming a default value of 1 day for now
+            bike: numericBikeId,
+            rentalDays: 1,
             deliveryDate: date,
             deliveryTime: time,
-            name: "John Doe", // Replace with the actual user's name from your state or context
-            address: "123 Main St", // Replace with the actual user's address from your state or context
+            name,
+            address,
+            dropOffAddress,
+            dropOffCity,
+            deliveryFee,
           }),
         }
       );
@@ -37,7 +57,6 @@ const SchedulingPage = () => {
         const data = await response.json();
         console.log("Rental and delivery scheduled successfully:", data);
 
-        // Pass the rental and delivery data to the confirmation page
         navigate("/confirmation", {
           state: { data },
         });
@@ -56,6 +75,28 @@ const SchedulingPage = () => {
     <div>
       <h1>Schedule Your E-Bike Rental</h1>
       <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Address:
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Enter your address"
+            required
+          />
+        </label>
+        <br />
         <label>
           Select a Date:
           <input
@@ -76,6 +117,32 @@ const SchedulingPage = () => {
           />
         </label>
         <br />
+        <label>
+          Drop-off City:
+          <select
+            value={dropOffCity}
+            onChange={(e) => setDropOffCity(e.target.value)}
+            required
+          >
+            <option value="">Select a city</option>
+            <option value="Indio">Indio</option>
+            <option value="Coachella">Coachella</option>
+            <option value="Palm Desert">Palm Desert</option>
+            <option value="Cathedral City">Cathedral City</option>
+            <option value="Palm Springs">Palm Springs</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          Drop-off Address:
+          <input
+            type="text"
+            value={dropOffAddress}
+            onChange={(e) => setDropOffAddress(e.target.value)}
+            placeholder="Enter drop-off address"
+            required
+          />
+        </label>
         <button type="submit">Schedule Rental</button>
       </form>
     </div>

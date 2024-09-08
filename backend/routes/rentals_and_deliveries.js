@@ -10,8 +10,20 @@ const moment = require("moment");
 console.log("Rentals and Deliveries Router Loaded");
 
 router.post("/", async (req, res) => {
-  const { name, bike, rentalDays, address, deliveryDate, deliveryTime } =
-    req.body;
+  // Destructure dropOffAddress and dropOffCity along with other fields
+  const {
+    name,
+    bike,
+    rentalDays,
+    address,
+    deliveryDate,
+    deliveryTime,
+    dropOffAddress,
+    dropOffCity,
+  } = req.body;
+
+  console.log("Drop-off Address:", dropOffAddress);
+  console.log("Drop-off City:", dropOffCity);
 
   console.log("Received data:", req.body);
 
@@ -68,9 +80,11 @@ router.post("/", async (req, res) => {
 
     const delivery = await Delivery.create({
       name,
-      address,
-      deliveryDate: deliveryDate,
-      deliveryTime: deliveryTime,
+      address, // Assuming this is the user's address
+      dropOffAddress, // Now this is defined and passed correctly
+      dropOffCity, // Now this is defined and passed correctly
+      deliveryDate,
+      deliveryTime,
       rentalId: rental.id,
       createdAt: rentalStartDate,
       updatedAt: rentalStartDate,

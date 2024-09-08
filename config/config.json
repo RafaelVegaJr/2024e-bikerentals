@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "null",
+    "database": "2024e-bikerentals",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

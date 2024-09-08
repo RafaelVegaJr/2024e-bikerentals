@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "../axiosConfig"; // Update this import
 import "./BikeList.css"; // Importing the CSS for BikeList
 
@@ -7,10 +7,10 @@ import "./BikeList.css"; // Importing the CSS for BikeList
 import Image1 from "../images/Image14.jpg";
 import Image2 from "../images/Image15.jpg";
 import Image3 from "../images/Image16.jpg";
-// Import more images as needed...
 
 const BikeList = () => {
   const [bikes, setBikes] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     axios
@@ -19,11 +19,15 @@ const BikeList = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  // Handle the Book Now button click
+  const handleBookNow = (bike) => {
+    navigate(`/schedule/${bike.id}`, { state: { bike } });
+  };
+
   return (
     <div className="bike-list">
       {bikes.map((bike, index) => (
         <div key={bike.id} className="bike-card">
-          {/* Add the image based on the bike or index */}
           <img
             src={index === 0 ? Image1 : index === 1 ? Image2 : Image3}
             alt={bike.name}
@@ -32,9 +36,12 @@ const BikeList = () => {
           <h2>{bike.name}</h2>
           <p>{bike.description}</p>
           <p>Price: ${bike.price}/day</p>
-          <Link to={`/schedule/${bike.id}`} className="btn btn-primary">
+          <button
+            className="btn btn-primary"
+            onClick={() => handleBookNow(bike)}
+          >
             Book Now
-          </Link>
+          </button>
         </div>
       ))}
     </div>
