@@ -9,8 +9,9 @@ const deliveryFees = {
 };
 
 const getDeliveryFee = (city) => {
-  const normalizedCity = city.toLowerCase().replace(/\s+/g, "");
-  return deliveryFees[normalizedCity] || 0;
+  const normalizedCity = city.toLowerCase().replace(/\s+/g, ""); // Normalizing the city
+  console.log("Normalized City:", normalizedCity); // Add this log to see the normalized city
+  return deliveryFees[normalizedCity] || 0; // Look up the delivery fee or default to 0
 };
 
 module.exports = { getDeliveryFee };

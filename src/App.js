@@ -10,6 +10,7 @@ import RentalAndDeliveryForm from "./components/RentalAndDeliveryForm";
 import Profile from "./components/Profile";
 import SchedulingPage from "./components/SchedulingPage";
 import ConfirmationPage from "./components/ConfirmationPage";
+import PaymentPage from "./components/PaymentPage"; // Import PaymentPage
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -37,10 +38,18 @@ function App() {
             path="profile"
             element={<ProtectedRoute component={Profile} />}
           />
-          {/* Redirect the /book path to the bike list on the home page */}
           <Route path="book" element={<Navigate to="/home#bike-list" />} />
           <Route path="schedule/:bikeId" element={<SchedulingPage />} />{" "}
           {/* SchedulingPage with bikeId */}
+          {/* PaymentPage Route */}
+          <Route
+            path="payment"
+            element={
+              <Elements stripe={stripePromise}>
+                <PaymentPage />
+              </Elements>
+            }
+          />
           <Route
             path="confirmation"
             element={

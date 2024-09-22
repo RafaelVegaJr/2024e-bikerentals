@@ -186,3 +186,32 @@ footer {
 footer p {
   margin: 0;
 }
+/* StripeElement Styles */
+.StripeElement {
+  display: block !important;
+  width: 100% !important;
+  height: 40px !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  background-color: white !important;
+  box-sizing: border-box !important;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.card-element-container {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+}

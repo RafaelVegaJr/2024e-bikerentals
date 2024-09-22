@@ -19,19 +19,8 @@ const SchedulingPage = () => {
 
     const deliveryFee = getDeliveryFee(dropOffCity);
 
-    console.log({
-      bike: numericBikeId,
-      rentalDays: 1,
-      deliveryDate: date,
-      deliveryTime: time,
-      name,
-      address,
-      dropOffAddress,
-      dropOffCity,
-      deliveryFee,
-    });
-
     try {
+      // Schedule rental and delivery
       const response = await fetch(
         "http://localhost:5000/api/rentals_and_deliveries",
         {
@@ -57,9 +46,45 @@ const SchedulingPage = () => {
         const data = await response.json();
         console.log("Rental and delivery scheduled successfully:", data);
 
-        navigate("/confirmation", {
-          state: { data },
-        });
+        const totalPrice = data.rental.total_price + deliveryFee;
+
+        // Create payment intent
+        const paymentIntentResponse = await fetch(
+          "http://localhost:5000/api/rentals_and_deliveries/create-payment-intent",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount: totalPrice * 100, // Amount in cents
+            }),
+          }
+        );
+
+        const paymentIntentData = await paymentIntentResponse.json();
+
+        if (paymentIntentResponse.ok) {
+          // Redirect to the Payment page with rental, delivery, clientSecret, and totalPrice data
+          navigate("/payment", {
+            state: {
+              data: {
+                clientSecret: paymentIntentData.clientSecret,
+                rental: data.rental,
+                delivery: {
+                  ...data.delivery, // Keep all properties of delivery
+                  deliveryFee: deliveryFee, // Add or override deliveryFee
+                },
+                totalPrice, // Total price is passed along as well
+              },
+            },
+          });
+        } else {
+          console.error(
+            "Failed to create payment intent:",
+            paymentIntentData.error
+          );
+        }
       } else {
         console.error(
           "Failed to schedule rental and delivery:",
@@ -143,6 +168,7 @@ const SchedulingPage = () => {
             required
           />
         </label>
+        <br />
         <button type="submit">Schedule Rental</button>
       </form>
     </div>

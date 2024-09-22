@@ -20,6 +20,11 @@ const ConfirmationPage = () => {
 
   console.log("Data in confirmation page:", data); // Log the data to ensure it's available
 
+  // Assuming the total price was passed along with the rental and delivery
+  const bikePrice = data.rental.total_price;
+  const deliveryFee = data.delivery.deliveryFee || 0; // Adjust if deliveryFee is available
+  const totalPrice = bikePrice + deliveryFee;
+
   return (
     <div className="confirmation-page">
       <h1>Booking Confirmed!</h1>
@@ -38,6 +43,13 @@ const ConfirmationPage = () => {
           {new Date(data.delivery.deliveryDate).toLocaleDateString()}
         </p>
         <p>Delivery Time: {data.delivery.deliveryTime}</p>
+
+        {/* Add total price breakdown here */}
+        <p>Bike Rental: ${bikePrice}</p>
+        <p>Delivery Fee: ${deliveryFee}</p>
+        <p>
+          <strong>Total Price: ${totalPrice}</strong>
+        </p>
       </div>
     </div>
   );
