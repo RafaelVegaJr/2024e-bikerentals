@@ -14,7 +14,6 @@ const stripePromise = loadStripe(
 
 const PaymentPage = () => {
   const { state } = useLocation();
-  console.log("Payment Page State: ", state);
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -25,11 +24,16 @@ const PaymentPage = () => {
     return null;
   }
 
-  const { clientSecret, rental, delivery, totalPrice } = state.data;
-  console.log("Client Secret: ", clientSecret);
-  console.log("Total Price: ", totalPrice);
-  const bikePrice = rental.total_price; // The price of the bike rental
-  const deliveryFee = totalPrice - bikePrice; // Delivery fee is the total minus
+  const {
+    clientSecret,
+    rental,
+    delivery,
+    rentalCost,
+    rentalDuration,
+    totalPrice,
+  } = state.data;
+
+  const deliveryFee = delivery.deliveryFee || 0;
 
   const handlePaymentSubmit = async (event) => {
     event.preventDefault();
@@ -56,19 +60,22 @@ const PaymentPage = () => {
       setErrorMessage(error.message);
     } else if (paymentIntent.status === "succeeded") {
       // Payment successful, navigate to confirmation page
-      navigate("/confirmation", { state: { data: { rental, delivery } } });
+      navigate("/confirmation", {
+        state: { data: { rental, delivery, totalPrice } },
+      });
     }
   };
 
   return (
     <div>
       <h1>Payment</h1>
-      <p>Bike Rental: ${bikePrice}</p> {/* Show bike rental cost */}
-      <p>Delivery Fee: ${deliveryFee}</p> {/* Show delivery fee */}
+      <p>
+        Bike Rental: ${rentalCost} for {rentalDuration} hours
+      </p>
+      <p>Delivery Fee: ${deliveryFee}</p>
       <p>
         <strong>Total Amount: ${totalPrice}</strong>
-      </p>{" "}
-      {/* Show total amount */}
+      </p>
       <form onSubmit={handlePaymentSubmit}>
         <CardElement />
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}

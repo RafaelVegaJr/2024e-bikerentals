@@ -1,29 +1,69 @@
-/* SchedulingPage.css */
-.scheduling-page {
+.scheduling-container {
+  display: flex;
+  justify-content: center; /* Center the form and image */
+  align-items: center;
   padding: 20px;
+  min-height: 100vh; /* Full height for centering but allows for more if content exceeds */
+
+  background-color: #FFFFFF; /* Match the background color with the image */
+}
+
+.scheduling-image {
+  flex: 1; /* Adjust to give space for the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f4ef; /* Match image background color */
+  padding: 10px; /* Reduce padding */
+}
+
+.scheduling-image img {
+  width: 100%; /* Reduce the image size to balance with form */
+  height: auto;
+  border-radius: 8px;
+}
+
+.scheduling-page {
+  padding: 10px;
 }
 
 .scheduling-page form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 650px;
+  width: 100%;
 }
 
-.scheduling-page label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
+.scheduling-page input,
+.scheduling-page select {
+  width: 100%;
+  max-width: 650px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .scheduling-page button {
-  background-color: #007bff;
-  color: white;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .scheduling-page button:hover {
   background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .scheduling-container {
+    flex-direction: column; /* Stack form and image vertically on small screens */
+    align-items: center;
+  }
+
+  .scheduling-image,
+  .scheduling-page {
+    max-width: 100%; /* Ensure both take up full width on smaller screens */
+  }
+
+  .scheduling-page {
+    padding: 0px;
+  }
 }

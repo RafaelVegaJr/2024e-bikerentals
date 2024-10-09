@@ -1,7 +1,7 @@
 form {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  max-width: 500px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -15,18 +15,20 @@ h2 {
 }
 
 label {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: bold;
 }
 
-input,
-select {
+input, select, textarea {
   margin-top: 5px;
   margin-bottom: 15px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 100%; /* Ensure all inputs are 100% wide within their container */
+  max-width: 500px; /* Ensure all have the same max width */
 }
+
 
 button {
   padding: 10px;

@@ -20,10 +20,13 @@ const ConfirmationPage = () => {
 
   console.log("Data in confirmation page:", data); // Log the data to ensure it's available
 
-  // Assuming the total price was passed along with the rental and delivery
-  const bikePrice = data.rental.total_price;
+  // Extract rental cost, delivery fee, and total price
+  const bikePrice = data.rental.total_price || 0; // Ensure the rental price is available
   const deliveryFee = data.delivery.deliveryFee || 0; // Adjust if deliveryFee is available
   const totalPrice = bikePrice + deliveryFee;
+
+  // Update the path to correctly access the drop-off address
+  const dropOffAddress = data.delivery.dropOffAddress || "N/A"; // Access drop-off address from data.delivery
 
   return (
     <div className="confirmation-page">
@@ -43,8 +46,8 @@ const ConfirmationPage = () => {
           {new Date(data.delivery.deliveryDate).toLocaleDateString()}
         </p>
         <p>Delivery Time: {data.delivery.deliveryTime}</p>
-
-        {/* Add total price breakdown here */}
+        <p>Drop-off Address: {dropOffAddress}</p>{" "}
+        {/* Correctly display the drop-off address */}
         <p>Bike Rental: ${bikePrice}</p>
         <p>Delivery Fee: ${deliveryFee}</p>
         <p>

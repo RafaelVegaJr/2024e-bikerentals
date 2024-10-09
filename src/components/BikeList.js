@@ -5,7 +5,7 @@ import "./BikeList.css"; // Importing the CSS for BikeList
 
 // Importing images
 import Image1 from "../images/Image14.jpg";
-import Image2 from "../images/Image15.jpg";
+import Image2 from "../images/Image17.jpg";
 import Image3 from "../images/Image16.jpg";
 
 const BikeList = () => {
@@ -35,7 +35,8 @@ const BikeList = () => {
           />
           <h2>{bike.name}</h2>
           <p>{bike.description}</p>
-          <p>Price: ${bike.price}/day</p>
+          <p>Price: ${bike.price}/hour</p>{" "}
+          {/* Updated to show price per hour */}
           <button
             className="btn btn-primary"
             onClick={() => handleBookNow(bike)}
