@@ -1,95 +1,45 @@
 const express = require("express");
 const router = express.Router();
 const sequelize = require("../database");
-const { DataTypes } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 
-// Define User model
-const User = sequelize.define(
-  "User",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    phone: {
-      type: DataTypes.STRING,
-    },
-    address: {
-      type: DataTypes.STRING,
-    },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "user",
-    },
-  },
-  {
-    tableName: "Users",
-    timestamps: false,
-  }
-);
+// Import the User model
+const User = require("../models/User");
 
 const secretKey = process.env.JWT_SECRET;
 
-// Register new user with validation
+// Signup new user with validation
 router.post(
-  "/register",
+  "/signup", // Updated route from /register to /signup
   [
-    body("username").notEmpty().withMessage("Username is required"),
+    body("full_name").notEmpty().withMessage("Full name is required"), // Validating full name
+    body("email").isEmail().withMessage("Valid email is required"), // Validating email
     body("password")
       .isLength({ min: 6 })
-      .withMessage("Password must be at least 6 characters long"),
-    body("email").isEmail().withMessage("Valid email is required"),
-    body("phone")
-      .optional()
-      .notEmpty()
-      .withMessage("Phone number is required if provided"),
-
-    body("role").optional().isIn(["user", "admin"]).withMessage("Invalid role"),
+      .withMessage("Password must be at least 6 characters long"), // Validating password length
   ],
   async (req, res) => {
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-      const { username, password, email, phone, address, role } = req.body;
+      const { full_name, email, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await User.create({
-        username,
-        password: hashedPassword,
+        full_name,
         email,
-        phone,
-        address,
-        role,
+        password: hashedPassword,
       });
 
-      res.status(201).json({ message: "User registered successfully", user });
+      res.status(201).json({ message: "User signed up successfully", user });
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during signup:", error);
       res.status(500).json({
         error: "An error occurred while creating user",
         details: error.message,
@@ -102,7 +52,7 @@ router.post(
 router.post(
   "/login",
   [
-    body("username").notEmpty().withMessage("Username is required"),
+    body("email").isEmail().withMessage("Valid email is required"), // Use email for login instead of username
     body("password").notEmpty().withMessage("Password is required"),
   ],
   async (req, res) => {
@@ -112,16 +62,16 @@ router.post(
     }
 
     try {
-      const { username, password } = req.body;
+      const { email, password } = req.body;
 
-      const user = await User.findOne({ where: { username } });
+      const user = await User.findOne({ where: { email } }); // Find by email
       if (!user) return res.status(400).json({ message: "User not found" });
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid)
         return res.status(400).json({ message: "Invalid credentials" });
 
-      const token = jwt.sign({ id: user.id, role: user.role }, secretKey, {
+      const token = jwt.sign({ id: user.id }, secretKey, {
         expiresIn: "1h",
       });
       res.json({ token });

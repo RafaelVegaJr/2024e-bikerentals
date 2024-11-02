@@ -85,11 +85,16 @@ router.post("/", async (req, res) => {
       rentalDuration: rentalHours,
       deliveryDate,
       deliveryTime,
+      rentalStartDate, // <-- Make sure you pass this
+      rentalEndDate,
       dropOffAddress,
       dropOffCity,
       totalRentalCost,
       deliveryFee,
+      rentalId: rental.id,
     };
+    console.log(rentalDetails); // Verify contents
+
     sendEmailNotification(rentalDetails); // Call the email function
 
     res.status(201).json({

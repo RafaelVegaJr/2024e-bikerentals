@@ -4,14 +4,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Register from "./components/Register";
+// import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RentalAndDeliveryForm from "./components/RentalAndDeliveryForm";
 import Profile from "./components/Profile";
 import SchedulingPage from "./components/SchedulingPage";
 import ConfirmationPage from "./components/ConfirmationPage";
 import PaymentPage from "./components/PaymentPage"; // Import PaymentPage
-
+import SignUp from "./sign-up/SignUp"; // Adjust the path based on where you've placed the component
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -29,7 +29,7 @@ function App() {
           {/* Redirect root to /home */}
           <Route path="home" element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route path="register" element={<SignUp />} />
           <Route
             path="rent_and_delivery"
             element={<ProtectedRoute component={RentalAndDeliveryForm} />}

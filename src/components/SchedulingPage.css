@@ -5,7 +5,7 @@
   padding: 20px;
   min-height: 100vh; /* Full height for centering but allows for more if content exceeds */
 
-  background-color: #FFFFFF; /* Match the background color with the image */
+  background-color: #ffffff; /* Match the background color with the image */
 }
 
 .scheduling-image {
@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f4ef; /* Match image background color */
+  /* background-color: #f5f4ef;  */
   padding: 10px; /* Reduce padding */
 }
 

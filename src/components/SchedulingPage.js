@@ -20,6 +20,7 @@ const SchedulingPage = () => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [rentalDuration, setRentalDuration] = useState(1);
+  const [phone, setPhone] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -46,6 +47,7 @@ const SchedulingPage = () => {
             deliveryTime: time,
             name,
             address,
+            phone,
             dropOffAddress,
             dropOffCity,
             deliveryFee,
@@ -137,6 +139,17 @@ const SchedulingPage = () => {
           </label>
           <br />
           <label>
+            <label>
+              Phone Number: {/* New phone number input */}
+              <input
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your phone number"
+                required
+              />
+            </label>
+            <br />
             Select a Date:
             <input
               type="date"

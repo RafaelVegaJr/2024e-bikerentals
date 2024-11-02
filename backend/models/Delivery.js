@@ -16,6 +16,10 @@ const Delivery = sequelize.define("Delivery", {
     validate: {
       notEmpty: true,
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false, // Ensure that a phone number is required
+    },
   },
   deliveryDate: {
     type: DataTypes.DATEONLY,

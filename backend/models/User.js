@@ -9,10 +9,9 @@ const User = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    full_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Ensuring unique usernames
     },
     password: {
       type: DataTypes.STRING,
@@ -26,20 +25,14 @@ const User = sequelize.define(
         isEmail: true, // Validating email format
       },
     },
-    phone: {
-      type: DataTypes.STRING,
-    },
-    address: {
-      type: DataTypes.STRING,
-    },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "user",
+      defaultValue: "user", // Default role
     },
   },
   {
-    timestamps: false,
+    timestamps: false, // Optional if you do not want created_at/updated_at columns
   }
 );
 
