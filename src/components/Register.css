@@ -1,14 +1,20 @@
-/* Register.css */
-body,
-html {
+/* Reset default styles */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* General body and html styles */
+body,
+html {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
+/* Background for the registration page */
 .register-background {
   background-image: url("../images/Image10.jpg");
   background-size: cover;
@@ -19,14 +25,15 @@ html {
   align-items: center;
 }
 
+/* Navbar styles */
 .register-navbar {
   width: 100%;
   background: black;
   padding: 10px 0;
   text-align: center;
-  /* position: fixed; */
+  position: fixed; /* Navbar sticks to the top */
   top: 0;
-  z-index: 1000; /* Ensure it stays above other content */
+  z-index: 1000;
 }
 
 .register-nav-link {
@@ -35,15 +42,17 @@ html {
   font-size: 20px;
 }
 
+/* Main container styles */
 .register-mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   flex: 1;
-  padding-top: 80px; /* Ensures the container is spaced below the navbar */
+  padding-top: 60px; /* Matches the height of the fixed navbar */
 }
 
+/* Form container styles */
 .register-formContainer {
   display: flex;
   flex-direction: column;
@@ -52,7 +61,7 @@ html {
   background: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 8px;
-  margin-top: 100px; /* Adjust this value to move the formContainer down */
+  margin-top: 20px; /* Reduces extra space under navbar */
 }
 
 h2 {
@@ -118,6 +127,7 @@ p a {
   text-decoration: none;
 }
 
+/* Footer styles */
 .register-footer {
   background-color: #333;
   color: #fff;
@@ -126,4 +136,17 @@ p a {
   width: 100%;
   position: relative;
   margin-top: auto;
+}
+body .register-navbar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+body .register-mainContainer {
+  padding-top: 60px;
+}
+
+body .register-formContainer {
+  margin-top: 20px;
 }

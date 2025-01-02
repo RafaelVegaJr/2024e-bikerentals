@@ -12,9 +12,10 @@ const secretKey = process.env.JWT_SECRET;
 
 // Signup new user with validation
 router.post(
-  "/signup", // Updated route from /register to /signup
+  "/signup",
   [
     body("full_name").notEmpty().withMessage("Full name is required"), // Validating full name
+    body("username").notEmpty().withMessage("Username is required"), // Validating username
     body("email").isEmail().withMessage("Valid email is required"), // Validating email
     body("password")
       .isLength({ min: 6 })
@@ -28,11 +29,25 @@ router.post(
     }
 
     try {
-      const { full_name, email, password } = req.body;
+      const { full_name, username, email, password } = req.body;
+
+      // Check if username or email already exists in the database
+      const existingUser = await User.findOne({ where: { username } });
+      if (existingUser) {
+        return res.status(400).json({ error: "Username already in use" });
+      }
+
+      const existingEmail = await User.findOne({ where: { email } });
+      if (existingEmail) {
+        return res.status(400).json({ error: "Email already in use" });
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // Create a new user with username, full name, email, and password
       const user = await User.create({
         full_name,
+        username,
         email,
         password: hashedPassword,
       });

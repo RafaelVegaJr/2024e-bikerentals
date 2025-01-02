@@ -19,7 +19,9 @@ label {
   font-weight: bold;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   margin-top: 5px;
   margin-bottom: 15px;
   padding: 8px;
@@ -28,7 +30,6 @@ input, select, textarea {
   width: 100%; /* Ensure all inputs are 100% wide within their container */
   max-width: 500px; /* Ensure all have the same max width */
 }
-
 
 button {
   padding: 10px;

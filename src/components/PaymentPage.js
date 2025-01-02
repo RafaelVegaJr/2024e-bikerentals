@@ -18,6 +18,7 @@ const PaymentPage = () => {
   const elements = useElements();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   if (!state || !state.data) {
     navigate("/home");
@@ -38,36 +39,44 @@ const PaymentPage = () => {
   const handlePaymentSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements || !clientSecret) {
+      setErrorMessage("Stripe has not loaded properly. Please try again.");
       return;
     }
 
     const cardElement = elements.getElement(CardElement);
 
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: rental.name,
+    try {
+      setIsProcessing(true);
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: rental.name,
+            },
           },
-        },
-      }
-    );
+        }
+      );
 
-    if (error) {
-      setErrorMessage(error.message);
-    } else if (paymentIntent.status === "succeeded") {
-      // Payment successful, navigate to confirmation page
-      navigate("/confirmation", {
-        state: { data: { rental, delivery, totalPrice } },
-      });
+      if (error) {
+        setErrorMessage(error.message);
+      } else if (paymentIntent.status === "succeeded") {
+        navigate("/confirmation", {
+          state: { data: { rental, delivery, totalPrice } },
+        });
+      }
+    } catch (error) {
+      console.error("Payment failed:", error);
+      setErrorMessage("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
       <h1>Payment</h1>
       <p>
         Bike Rental: ${rentalCost} for {rentalDuration} hours
@@ -76,11 +85,38 @@ const PaymentPage = () => {
       <p>
         <strong>Total Amount: ${totalPrice}</strong>
       </p>
-      <form onSubmit={handlePaymentSubmit}>
-        <CardElement />
+      <form onSubmit={handlePaymentSubmit} style={{ marginTop: "20px" }}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
+              },
+            },
+          }}
+        />
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button type="submit" disabled={!stripe}>
-          Pay
+        <button
+          type="submit"
+          disabled={!stripe || isProcessing}
+          style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: isProcessing ? "not-allowed" : "pointer",
+          }}
+        >
+          {isProcessing ? "Processing..." : "Pay"}
         </button>
       </form>
     </div>

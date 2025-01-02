@@ -13,6 +13,11 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true, // Ensure username is unique
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,19 +25,19 @@ const User = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Ensuring unique emails
+      unique: true, // Ensure email is unique
       validate: {
-        isEmail: true, // Validating email format
+        isEmail: true,
       },
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "user", // Default role
+      defaultValue: "user",
     },
   },
   {
-    timestamps: false, // Optional if you do not want created_at/updated_at columns
+    timestamps: false,
   }
 );
 

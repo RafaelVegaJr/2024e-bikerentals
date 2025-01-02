@@ -1,88 +1,153 @@
 // src/components/Login.js
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "../axiosConfig";
 import Cookies from "js-cookie";
-import "./Login.css"; // Import the CSS file
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import MuiCard from "@mui/material/Card";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import TemplateFrame from "../sign-up/TemplateFrame";
+import { CssBaseline } from "@mui/material";
+import backgroundImage from "../images/Image19.jpg";
+
+const Card = styled(MuiCard)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignSelf: "center",
+  width: "100%",
+  padding: theme.spacing(4),
+  gap: theme.spacing(2),
+  margin: "auto",
+  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
+  backgroundColor: "rgba(255, 255, 255, 0.9)", // Semi-transparent white background
+
+  [theme.breakpoints.up("sm")]: {
+    width: "400px",
+  },
+}));
+
+const LoginContainer = styled(Stack)(({ theme }) => ({
+  minHeight: "100vh",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: theme.spacing(4),
+  backgroundImage: `url(${backgroundImage})`, // Add your image path here
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+}));
+
+const StyledButton = styled(Button)({
+  backgroundColor: "#4CAF50", // Custom button color
+  color: "#fff",
+  "&:hover": {
+    backgroundColor: "#45a049", // Custom hover color
+  },
+});
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
+  const [mode, setMode] = useState("light"); // Define mode state
+  const [showCustomTheme, setShowCustomTheme] = useState(true); // Define showCustomTheme state
 
   const navigate = useNavigate();
+
+  const toggleColorMode = () => {
+    const newMode = mode === "dark" ? "light" : "dark";
+    setMode(newMode);
+    localStorage.setItem("themeMode", newMode);
+  };
+
+  const toggleCustomTheme = () => {
+    setShowCustomTheme((prev) => !prev);
+  };
 
   const onButtonClick = async () => {
     try {
       const response = await axios.post("/api/users/login", {
-        username: email,
+        email,
         password,
       });
-      Cookies.set("token", response.data.token, { expires: 1 }); // Set the token cookie with a 1-day expiry
-      navigate("/profile"); // Redirect to profile page
+      Cookies.set("token", response.data.token, { expires: 1 });
+      navigate("/profile");
     } catch (error) {
       console.error("Error logging in:", error);
-      setEmailError("Invalid email or password");
-      setPasswordError("Invalid email or password");
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="login-background">
-      <nav className="login-navbar">
-        <Link to="/home" className="login-nav-link">
-          Home
-        </Link>
-      </nav>
-      <div className="login-mainContainer">
-        <div className="login-titleContainer">
-          <div>Login</div>
-        </div>
-        <br />
-        <div className="login-inputContainer">
-          <label htmlFor="email">Username</label>
-          <input
-            id="email"
-            name="email"
-            value={email}
-            placeholder="Enter your username here"
-            onChange={(ev) => setEmail(ev.target.value)}
-            autoComplete="username"
-            required
-            className="login-inputBox"
-          />
-          <label className="login-errorLabel">{emailError}</label>
-        </div>
-        <br />
-        <div className="login-inputContainer">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password here"
-            onChange={(ev) => setPassword(ev.target.value)}
-            autoComplete="current-password"
-            required
-            className="login-inputBox"
-          />
-          <label className="login-errorLabel">{passwordError}</label>
-        </div>
-        <br />
-        <div className="login-inputContainer">
-          <input
-            className="inputButton"
-            type="button"
-            onClick={onButtonClick}
-            value="Log in"
-          />
-        </div>
-      </div>
-      <footer className="login-footer">
-        <p>&copy; 2024 E-Bike Rentals. All Rights Reserved.</p>
-      </footer>
-    </div>
+    <TemplateFrame
+      mode={mode}
+      showCustomTheme={showCustomTheme}
+      toggleColorMode={toggleColorMode}
+      toggleCustomTheme={toggleCustomTheme}
+    >
+      <ThemeProvider theme={createTheme()}>
+        <CssBaseline enableColorScheme />
+        <LoginContainer>
+          <Card variant="outlined">
+            {/* Optional logo image */}
+            {/* <img src="/images/image1.jpg" alt="Logo" /> */}
+
+            <Typography
+              component="h1"
+              variant="h4"
+              sx={{
+                textAlign: "center",
+                fontSize: "clamp(2rem, 10vw, 2.15rem)",
+              }}
+            >
+              Login
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={(e) => e.preventDefault()}
+              sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+            >
+              <TextField
+                label="Email"
+                placeholder="Enter your email"
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!error}
+                helperText={error && "Invalid email or password"}
+              />
+              <TextField
+                label="Password"
+                placeholder="Enter your password"
+                fullWidth
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                error={!!error}
+              />
+              <StyledButton
+                variant="contained"
+                fullWidth
+                onClick={onButtonClick}
+              >
+                Log in
+              </StyledButton>
+              <Typography sx={{ textAlign: "center" }}>
+                Don't have an account?{" "}
+                <Link to="/register" style={{ textDecoration: "none" }}>
+                  Sign up
+                </Link>
+              </Typography>
+            </Box>
+          </Card>
+        </LoginContainer>
+      </ThemeProvider>
+    </TemplateFrame>
   );
 };
 

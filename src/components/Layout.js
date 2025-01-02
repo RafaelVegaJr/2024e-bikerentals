@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div className="App">
       {!isHomePage && ( // Show Home button on all pages except the homepage
-        <header style={{ padding: "10px", backgroundColor: "#f1f1f1" }}>
+        <header style={{ margin: 0, padding: 0 }}>
           <Link to="/home">
             <Button variant="contained" color="primary">
               Home

@@ -22,13 +22,25 @@ export default function HeroSectionWithNavbar() {
   };
 
   return (
-    <header style={{ paddingLeft: 0 }}>
+    <header style={{ padding: 0, margin: 0, paddingLeft: 0 }}>
       <div className="bg-video-wrapper">
         <video className="bg-video" autoPlay loop muted>
           <source src={videoSource} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <MDBNavbar expand="lg" light bgColor="transparent" className="navbar">
+        <MDBNavbar
+          expand="lg"
+          light
+          style={{
+            backgroundColor: "transparent",
+            padding: 0,
+            margin: 0,
+            position: "absolute",
+            top: 0,
+            zIndex: 10,
+          }}
+          className="navbar"
+        >
           <MDBContainer fluid>
             <MDBNavbarToggler
               aria-controls="navbarExample01"

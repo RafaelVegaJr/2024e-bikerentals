@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import getSignUpTheme from "./theme/getSignUpTheme";
 import { GoogleIcon, FacebookIcon } from "./CustomIcons";
 import TemplateFrame from "./TemplateFrame";
-import axios from "../axiosConfig"; // Assuming you use axios for API calls
+import axios from "../axiosConfig";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -40,18 +40,13 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
-  minHeight: "100%",
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   padding: theme.spacing(2),
-  [theme.breakpoints.up("sm")]: {
-    padding: theme.spacing(4),
-  },
-  backgroundImage:
-    "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
+  backgroundImage: "radial-gradient(ellipse at center, #fbc2eb, #a18cd1)", // Replace with your gradient
   backgroundRepeat: "no-repeat",
-  ...theme.applyStyles("dark", {
-    backgroundImage:
-      "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
-  }),
 }));
 
 export default function SignUp() {
@@ -59,14 +54,17 @@ export default function SignUp() {
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
+  const [usernameError, setUsernameError] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [fullName, setFullName] = useState(""); // New state for Full Name
-  const [email, setEmail] = useState(""); // State for Email
-  const [password, setPassword] = useState(""); // State for Password
-  const navigate = useNavigate(); // For navigation after signup
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState(""); // New state for Username
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // Theme toggle logic
   React.useEffect(() => {
@@ -90,13 +88,14 @@ export default function SignUp() {
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
   };
+
   const defaultTheme = createTheme({
     palette: {
-      mode: "light", // Light mode for default theme
+      mode: "light",
     },
   });
 
-  const SignUpTheme = createTheme(getSignUpTheme(mode)); // Pass the mode as needed
+  const SignUpTheme = createTheme(getSignUpTheme(mode));
 
   // Validation and form submission
   const validateInputs = () => {
@@ -109,6 +108,15 @@ export default function SignUp() {
     } else {
       setNameError(false);
       setNameErrorMessage("");
+    }
+
+    if (!username) {
+      setUsernameError(true);
+      setUsernameErrorMessage("Username is required.");
+      isValid = false;
+    } else {
+      setUsernameError(false);
+      setUsernameErrorMessage("");
     }
 
     if (!/\S+@\S+\.\S+/.test(email)) {
@@ -138,12 +146,13 @@ export default function SignUp() {
 
     try {
       const response = await axios.post("/api/users/signup", {
-        fullName,
+        full_name: fullName,
+        username, // Include username in the request
         email,
         password,
       });
       if (response.status === 201) {
-        navigate("/login"); // Redirect to login after successful signup
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error signing up user:", error);
@@ -174,7 +183,7 @@ export default function SignUp() {
               sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             >
               <FormControl>
-                <FormLabel htmlFor="name">Full name</FormLabel>
+                <FormLabel htmlFor="fullName">Full name</FormLabel>
                 <TextField
                   autoComplete="name"
                   name="fullName"
@@ -183,10 +192,25 @@ export default function SignUp() {
                   id="fullName"
                   placeholder="Jon Snow"
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)} // Handle full name input
+                  onChange={(e) => setFullName(e.target.value)}
                   error={nameError}
                   helperText={nameErrorMessage}
                   color={nameError ? "error" : "primary"}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="username">Username</FormLabel>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  placeholder="username123"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  error={usernameError}
+                  helperText={usernameErrorMessage}
+                  color={usernameError ? "error" : "primary"}
                 />
               </FormControl>
               <FormControl>
@@ -199,7 +223,7 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)} // Handle email input
+                  onChange={(e) => setEmail(e.target.value)}
                   error={emailError}
                   helperText={emailErrorMessage}
                   color={emailError ? "error" : "primary"}
@@ -216,7 +240,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)} // Handle password input
+                  onChange={(e) => setPassword(e.target.value)}
                   error={passwordError}
                   helperText={passwordErrorMessage}
                   color={passwordError ? "error" : "primary"}

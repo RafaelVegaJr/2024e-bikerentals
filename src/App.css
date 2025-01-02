@@ -25,7 +25,7 @@ html {
   left: 0;
   width: 100%;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.997);
+  background-color: transparent;
 }
 
 .navbar a,
@@ -212,6 +212,21 @@ footer p {
 
 .card-element-container {
   width: 100%;
-  padding: 10px;
+  /* padding: 10px; */
   margin-top: 20px;
 }
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  overflow-x: hidden; /* Prevents any horizontal scroll bars */
+}
+/* body {
+  background-image: url("/src/images/Image19.jpg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+} */

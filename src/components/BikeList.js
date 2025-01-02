@@ -25,7 +25,7 @@ const BikeList = () => {
   };
 
   return (
-    <div className="bike-list">
+    <div id="bottom" className="bike-list">
       {bikes.map((bike, index) => (
         <div key={bike.id} className="bike-card">
           <img
