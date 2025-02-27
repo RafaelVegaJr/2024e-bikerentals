@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../axiosConfig";
 import { Link } from "react-router-dom";
 import "./Profile.css";
+import profileImage from "../images/Image20.jpg";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -29,6 +30,7 @@ const Profile = () => {
 
   return (
     <div className="profile-mainContainer">
+      {/* Navigation Bar */}
       <nav className="profile-navbar">
         <Link to="/home" className="profile-nav-link">
           Home
@@ -36,21 +38,36 @@ const Profile = () => {
         <Link to="/login" className="profile-nav-link">
           Login
         </Link>
-        <Link to="/register" className="profile-nav-link">
-          Register
-        </Link>
         <Link to="/profile" className="profile-nav-link">
           Profile
         </Link>
       </nav>
+
+      {/* Profile Content */}
       <div className="profile-contentContainer">
+        {/* Profile Picture - Replace Placeholder with Actual Image */}
+        <img
+          src={profileImage}
+          alt="Profile Picture"
+          className="profile-image"
+        />
+
         <h1>Profile</h1>
-        <p>Username: {profile.username}</p>
-        <p>Email: {profile.email}</p>
-        <p>Phone: {profile.phone}</p>
-        <p>Address: {profile.address}</p>
-        <p>Role: {profile.role}</p>
+        <p>
+          <strong>Full Name:</strong> {profile.full_name}
+        </p>
+        <p>
+          <strong>Username:</strong> {profile.username}
+        </p>
+        <p>
+          <strong>Email:</strong> {profile.email}
+        </p>
+        <p>
+          <strong>Role:</strong> {profile.role}
+        </p>
       </div>
+
+      {/* Footer */}
       <footer>
         <p>&copy; 2024 E-Bike Rentals. All Rights Reserved.</p>
       </footer>

@@ -1,18 +1,19 @@
+/* Main Profile Container */
 .profile-mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-top: 80px; /* Ensures the container is spaced below the navbar */
-  background-size: cover;
-  background-position: center;
+  padding-top: 80px; /* Keeps content below navbar */
+  background: url("../images/Image5.jpg") no-repeat center center/cover;
 }
 
+/* Navbar */
 .profile-navbar {
   width: 100%;
   background: black;
-  padding: 10px 0;
+  padding: 15px 0;
   text-align: center;
   position: fixed;
   top: 0;
@@ -23,33 +24,76 @@
 .profile-nav-link {
   color: white;
   text-decoration: none;
-  font-size: 20px;
-  margin: 0 10px;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 15px;
+  padding: 8px 12px;
+  transition: color 0.3s ease, background 0.3s ease;
+  border-radius: 5px;
 }
 
 .profile-nav-link:hover {
-  color: cornflowerblue;
+  color: black;
+  background: white;
 }
 
+/* Profile Content Box */
 .profile-contentContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 90%;
+  max-width: 500px;
+  background: #060606; /* Dark gray background */
   color: white;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.6); /* Optional: to make text more readable */
-  border-radius: 8px;
-  margin-top: 50px; /* Adjust this value to move the formContainer up */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
+  margin-top: 60px;
+  text-align: center;
 }
 
+/* Profile Heading */
+.profile-contentContainer h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: 700;
+}
+
+/* Profile Info */
+.profile-contentContainer p {
+  font-size: 18px;
+  margin: 8px 0;
+  font-weight: 400;
+  word-break: break-word; /* Ensures long usernames/emails wrap properly */
+}
+
+/* Bold Labels for Profile Info */
+.profile-contentContainer p strong {
+  font-weight: 600;
+  color: #e0e0e0; /* Light gray for better readability */
+}
+
+/* Footer */
 footer {
-  background-color: #333;
-  color: #fff;
+  background-color: black;
+  color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 0;
   width: 100%;
   position: relative;
   bottom: 0;
   margin-top: auto;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Makes it circular */
+  object-fit: cover; /* Ensures image scales correctly */
+  border: 3px solid white;
+  margin-bottom: 15px;
 }

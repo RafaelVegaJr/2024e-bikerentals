@@ -10,7 +10,6 @@ const ConfirmationPage = () => {
   console.log("Location state:", state); // Log the state to see what data is passed
 
   if (!state) {
-    // If there's no state, redirect back to the home page or an error page
     console.log("No state found, redirecting to home...");
     navigate("/home");
     return null;
@@ -18,15 +17,12 @@ const ConfirmationPage = () => {
 
   const { data } = state;
 
-  console.log("Data in confirmation page:", data); // Log the data to ensure it's available
+  console.log("Data in confirmation page:", data);
 
-  // Extract rental cost, delivery fee, and total price
-  const bikePrice = data.rental.total_price || 0; // Ensure the rental price is available
-  const deliveryFee = data.delivery.deliveryFee || 0; // Adjust if deliveryFee is available
+  const bikePrice = data.rental.total_price || 0;
+  const deliveryFee = data.delivery.deliveryFee || 0;
   const totalPrice = bikePrice + deliveryFee;
-
-  // Update the path to correctly access the drop-off address
-  const dropOffAddress = data.delivery.dropOffAddress || "N/A"; // Access drop-off address from data.delivery
+  const dropOffAddress = data.delivery.dropOffAddress || "N/A";
 
   return (
     <div className="confirmation-page">
@@ -46,14 +42,18 @@ const ConfirmationPage = () => {
           {new Date(data.delivery.deliveryDate).toLocaleDateString()}
         </p>
         <p>Delivery Time: {data.delivery.deliveryTime}</p>
-        <p>Drop-off Address: {dropOffAddress}</p>{" "}
-        {/* Correctly display the drop-off address */}
+        <p>Drop-off Address: {dropOffAddress}</p>
         <p>Bike Rental: ${bikePrice}</p>
         <p>Delivery Fee: ${deliveryFee}</p>
         <p>
           <strong>Total Price: ${totalPrice}</strong>
         </p>
       </div>
+
+      {/* ✅ Home Button Added Here */}
+      <button className="home-button" onClick={() => navigate("/home")}>
+        Home
+      </button>
     </div>
   );
 };

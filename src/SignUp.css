@@ -12,35 +12,34 @@ html {
 }
 
 /* Navbar styles */
-.login-navbar {
+.signup-navbar {
   width: 100%;
   background: #73a6ef;
   padding: 10px 0;
   text-align: center;
-  position: fixed;
+  position: fixed; /* Sticks the navbar to the top */
   top: 0;
   z-index: 1000;
 }
 
-.login-nav-link {
+.signup-nav-link {
   color: white;
   text-decoration: none;
   font-size: 18px;
 }
 
 /* Main container */
-.login-mainContainer {
+.signup-mainContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 60px;
+  padding-top: 60px; /* Adjust for the navbar height */
   min-height: 100vh;
   background: linear-gradient(to bottom, #6fa3ef, #ffffff);
 }
 
-/* Form container */
-.login-formContainer {
+.signup-formContainer {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -69,24 +68,7 @@ input {
   border-radius: 5px;
 }
 
-/* Forgot password */
-.forgot-password {
-  text-align: right;
-  margin-bottom: 10px;
-}
-
-.forgot-password a {
-  color: #4a90e2;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.forgot-password a:hover {
-  text-decoration: underline;
-}
-
-/* Button */
-.login-button {
+.signup-button {
   background-color: cornflowerblue;
   color: white;
   border: none;
@@ -94,10 +76,8 @@ input {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  width: 100%;
-  transition: 0.3s;
 }
 
-.login-button:hover {
+.signup-button:hover {
   background-color: #6fa3ef;
 }

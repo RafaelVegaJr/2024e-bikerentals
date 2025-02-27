@@ -28,6 +28,8 @@ app.use(express.json());
 // Routes
 app.use("/api/rentals_and_deliveries", rentalsAndDeliveriesRouter);
 app.use("/api/users", usersRouter);
+console.log("Users route loaded: /api/users");
+
 app.use("/api/bikes", bikesRouter);
 
 console.log("Routes loaded successfully");

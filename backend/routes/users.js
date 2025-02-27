@@ -100,14 +100,31 @@ router.post(
 // Get user profile with token validation
 router.get("/profile", async (req, res) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    // Check if Authorization header exists
+    if (!req.headers.authorization) {
+      return res.status(401).json({ error: "No authorization token provided" });
+    }
+
+    const authParts = req.headers.authorization.split(" ");
+
+    if (authParts.length !== 2 || authParts[0] !== "Bearer") {
+      return res.status(401).json({ error: "Invalid token format" });
+    }
+
+    const token = authParts[1];
+
+    // Verify the token
     const decoded = jwt.verify(token, secretKey);
+
+    // Find the user in the database (excluding password)
     const user = await User.findByPk(decoded.id, {
       attributes: { exclude: ["password"] },
     });
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     res.json(user);
   } catch (error) {
     console.error("Error fetching profile:", error);

@@ -63,8 +63,8 @@ export default function HeroSectionWithNavbar() {
                   </a>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
-                  <a className="nav-link" href="/register">
-                    Register
+                  <a className="nav-link" href="/signup">
+                    Sign-Up
                   </a>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
