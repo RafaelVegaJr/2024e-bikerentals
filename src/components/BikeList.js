@@ -12,7 +12,7 @@ const BikeList = () => {
 
   useEffect(() => {
     axios
-      .get("/api/bikes")
+      .get("https://two024e-bikerentals.onrender.com/api/bikes")
       .then((response) => {
         const hybrid = response.data.find((b) => b.name === "E-Bike");
         setBike(hybrid);
