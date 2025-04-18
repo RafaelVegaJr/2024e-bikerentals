@@ -2,7 +2,6 @@ import React from "react";
 import "./ImageSection.css";
 import Image2 from "../images/Image22.png"; // moon image for desktop
 import Image3 from "../images/Image24.png"; // mountain image (left)
-import SunImage from "../images/Image22.png"; // sun image for mobile
 
 const ImageSection = () => {
   return (
