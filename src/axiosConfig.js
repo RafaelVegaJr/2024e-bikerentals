@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000", // Adjust the base URL as needed
+  baseURL: "https://two024e-bikerentals.onrender.com", // Adjust the base URL as needed
   headers: {
     "Content-Type": "application/json",
   },
