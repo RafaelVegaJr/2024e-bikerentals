@@ -39,18 +39,19 @@ const AboutSection = () => {
         </h1>
         <pre>
           {`
-      At E-Bike Rentals,
-      we offer a wide range of electric bikes
-      for all your outdoor adventures.
-      Whether you're exploring trails, commuting to work,
-      or enjoying a leisurely ride,
-      our e-bikes provide the perfect
-      combination of power and comfort.
+     Looking for an adventure?
+     We’re proud to offer the Aventon Soltera 
+     a sleek, high-performance electric bike perfect 
+     for cruising city streets or enjoying a scenic ride. 
 
-      Our mission is to provide high-quality
-      e-bikes and excellent customer service to ensure
-      you have an unforgettable experience. Join us and
-      discover the joy of riding an e-bike today!
+     Whether you're commuting, exploring,
+     or just out for some fresh air, our e-bike delivers 
+     the perfect mix of comfort, power, and style.
+
+     We're all about providing an easy, enjoyable 
+     rental experience with a focus on quality, 
+     simplicity, and personalized service.
+     Try it for yourself and feel the ride.
           `}
         </pre>
       </div>

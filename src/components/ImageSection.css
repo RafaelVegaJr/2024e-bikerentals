@@ -10,8 +10,8 @@
   flex: 1;
   margin: 0 10px;
   position: relative;
-  overflow: hidden;
-  max-width: 42%; /* Ensure images don't take more than 50% of the container width */
+  overflow: visible; /* <- changed from hidden to visible */
+  max-width: 42%;
 }
 
 .image-container-left {
@@ -46,5 +46,28 @@
   .image-container-left,
   .image-container-right {
     margin-top: 0; /* Remove top margins for smaller screens */
+  }
+}
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+}
+/* Desktop & Mobile display rules */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
   }
 }

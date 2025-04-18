@@ -1,50 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import axios from "../axiosConfig"; // Update this import
-import "./BikeList.css"; // Importing the CSS for BikeList
+import { useNavigate } from "react-router-dom";
+import axios from "../axiosConfig";
+import "./BikeList.css";
 
-// Importing images
-import Image1 from "../images/Image14.jpg";
-import Image2 from "../images/Image17.jpg";
-import Image3 from "../images/Image16.jpg";
+// Importing the single image for Hybrid Bike
+import Image1 from "../images/Image17.jpg";
 
 const BikeList = () => {
-  const [bikes, setBikes] = useState([]);
-  const navigate = useNavigate(); // Initialize navigate
+  const [bike, setBike] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("/api/bikes") // Update the URL to use relative path
-      .then((response) => setBikes(response.data))
+      .get("/api/bikes")
+      .then((response) => {
+        const hybrid = response.data.find((b) => b.name === "E-Bike");
+        setBike(hybrid);
+      })
       .catch((error) => console.log(error));
   }, []);
 
-  // Handle the Book Now button click
-  const handleBookNow = (bike) => {
-    navigate(`/schedule/${bike.id}`, { state: { bike } });
+  const handleBookNow = () => {
+    if (bike) {
+      navigate(`/schedule/${bike.id}`, { state: { bike } });
+    }
   };
 
   return (
     <div id="bottom" className="bike-list">
-      {bikes.map((bike, index) => (
-        <div key={bike.id} className="bike-card">
-          <img
-            src={index === 0 ? Image1 : index === 1 ? Image2 : Image3}
-            alt={bike.name}
-            className="bike-image"
-          />
+      {bike && (
+        <div className="bike-card">
+          <img src={Image1} alt={bike.name} className="bike-image" />
           <h2>{bike.name}</h2>
           <p>{bike.description}</p>
-          <p>Price: ${bike.price}/hour</p>{" "}
-          {/* Updated to show price per hour */}
-          <button
-            className="btn btn-primary"
-            onClick={() => handleBookNow(bike)}
-          >
+          <p>Price: ${bike.price}/hour</p>
+          <button className="btn btn-primary" onClick={handleBookNow}>
             Book Now
           </button>
         </div>
-      ))}
+      )}
     </div>
   );
 };

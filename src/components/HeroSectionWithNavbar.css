@@ -1,11 +1,15 @@
 /* src/components/HeroSectionWithNavbar.css */
+
 .hero-header {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  padding: 0; /* Add this line if there’s any default padding */
-  margin: 0; /* Add this line if there’s any default margin */
+  padding: 0;
+  margin: 0;
+}
+.bg-video-wrapper {
+  overflow: visible; /* ✅ allow content like text to show */
 }
 
 .navbar {
@@ -28,15 +32,33 @@
   color: #ccc;
 }
 
-.mask {
+.hero-mask {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
-  margin: 0; /* Ensure there's no additional margin */
-  padding: 0; /* Ensure there's no additional padding */
+  z-index: 5;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.hero-mask h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-mask h4 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-mask .btn {
+  font-size: 18px;
+  padding: 10px 24px;
 }
 
 .bg-video-wrapper {
@@ -73,6 +95,13 @@
   margin-bottom: 20px;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Tablet adjustments */
 @media (max-width: 768px) {
   .navbar {
     padding: 0.5rem 1rem;
@@ -95,8 +124,76 @@
     font-size: 18px;
   }
 }
-html,
-body {
-  margin: 0;
-  padding: 0;
+
+/* ✅ Mobile-specific styles */
+@media (max-width: 991px) {
+  /* Mobile background gradient overlay */
+
+  .navbar-collapse {
+    background: transparent;
+  }
+
+  .navbar-collapse.show {
+    max-height: 300px;
+  }
+
+  .navbar-nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1rem;
+  }
+
+  .nav-link {
+    color: white !important;
+    padding: 0.75rem 1rem;
+    width: 100%;
+  }
+  .navbar-toggler {
+    background-color: rgba(175, 158, 158, 0.5); /* subtle dark background */
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+}
+@media (max-width: 768px) {
+  .mask {
+    top: 60%;
+    transform: translate(-50%, -50%);
+    padding: 0 1rem;
+    text-align: center;
+    display: block;
+    z-index: 5;
+  }
+
+  .mask h1 {
+    font-size: 28px;
+  }
+
+  .mask h4 {
+    font-size: 16px;
+  }
+
+  .mask .btn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .mask h1,
+  .mask h4 {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  }
+}
+.bg-video-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.3)
+  );
+  z-index: 1;
+  pointer-events: none;
 }

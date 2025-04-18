@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBNavbar,
   MDBNavbarToggler,
@@ -8,11 +8,20 @@ import {
   MDBContainer,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import videoSource from "../videos/video1.mp4"; // Correct import path for the video
+import videoSource from "../videos/video2.mp4"; // Correct import path for the video
 import "./HeroSectionWithNavbar.css"; // Importing the CSS file
 
 export default function HeroSectionWithNavbar() {
   const [showNav, setShowNav] = React.useState(false);
+  useEffect(() => {
+    const video = document.querySelector(".bg-video");
+    if (video) {
+      video.addEventListener("ended", () => {
+        video.currentTime = 0;
+        video.play();
+      });
+    }
+  }, []);
 
   const scrollToBottom = () => {
     window.scrollTo({
@@ -24,10 +33,18 @@ export default function HeroSectionWithNavbar() {
   return (
     <header style={{ padding: 0, margin: 0, paddingLeft: 0 }}>
       <div className="bg-video-wrapper">
-        <video className="bg-video" autoPlay loop muted>
+        <video
+          className="bg-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
           <source src={videoSource} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
         <MDBNavbar
           expand="lg"
           light
@@ -50,8 +67,12 @@ export default function HeroSectionWithNavbar() {
             >
               <MDBIcon fas icon="bars" />
             </MDBNavbarToggler>
-            <MDBCollapse navbar show={showNav ? true : undefined}>
-              <MDBNavbarNav right className="mb-2 mb-lg-0 d-flex flex-row">
+            <MDBCollapse
+              navbar
+              show={showNav ? true : undefined}
+              className={`navbar-collapse ${showNav ? "show" : ""}`}
+            >
+              <MDBNavbarNav className="mb-2 mb-lg-0 justify-content-end">
                 <MDBNavbarItem active>
                   <a className="nav-link" href="/home">
                     Home
@@ -89,13 +110,14 @@ export default function HeroSectionWithNavbar() {
           </MDBContainer>
         </MDBNavbar>
 
-        <div className="mask">
+        <div className="hero-mask">
           <div className="text-white text-center">
             <h1 className="mb-3">Explore the Great Outdoors</h1>
             <h4 className="mb-3">Join the Ride Today</h4>
             <a
+              href="#bottom"
+              onClick={scrollToBottom}
               className="btn btn-outline-light btn-lg"
-              href="/home"
               role="button"
             >
               Let's Ride

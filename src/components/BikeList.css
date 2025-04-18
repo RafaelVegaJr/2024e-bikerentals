@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  overflow: visible; /* ⬅️ Add this */
 }
 
 .bike-card {
@@ -13,12 +14,26 @@
   text-align: center;
   flex: 1 1 calc(33.333% - 40px);
   box-sizing: border-box;
+  overflow: visible;
+  transition: transform 0.3s ease;
 }
 
 .bike-card img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.bike-image {
+  max-width: 700px; /* 👈 Shrinks the image width */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* 👈 Centers the image horizontally */
+}
+
+.bike-card img:hover {
+  transform: scale(1.05);
 }
 
 .bike-card h2 {
@@ -40,4 +55,11 @@
 
 .btn-primary:hover {
   background-color: #0056b3;
+}
+.bike-card img.bike-image {
+  max-width: 650px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }

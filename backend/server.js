@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const sequelize = require("./database");
+const paymentsRouter = require("./routes/payments"); // ⬅️ add this
 
 console.log("Loading routes...");
 
@@ -23,11 +24,15 @@ app.use(
     credentials: true,
   })
 );
+app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
+
 app.use(express.json());
 
 // Routes
 app.use("/api/rentals_and_deliveries", rentalsAndDeliveriesRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/payments", paymentsRouter); // ⬅️ register the route
+
 console.log("Users route loaded: /api/users");
 
 app.use("/api/bikes", bikesRouter);

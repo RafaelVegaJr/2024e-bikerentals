@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import "./SchedulingPage.css";
 import Image1 from "../images/Image17.jpg";
 
-import { useEffect } from "react";
-
 const SchedulingPage = () => {
   useEffect(() => {
-    // Scroll to the top of the page when the component mounts
     window.scrollTo(0, 0);
   }, []);
+
   const { bikeId } = useParams();
   const numericBikeId = Number(bikeId);
   const [date, setDate] = useState("");
@@ -27,9 +25,8 @@ const SchedulingPage = () => {
     event.preventDefault();
 
     const deliveryFee = getDeliveryFee(dropOffCity);
-    const bikeRentalCostPerHour = 10; // $10 per hour
+    const bikeRentalCostPerHour = 10;
     const rentalCost = bikeRentalCostPerHour * rentalDuration;
-
     const totalPrice = rentalCost + deliveryFee;
 
     try {
@@ -37,9 +34,7 @@ const SchedulingPage = () => {
         "http://localhost:5000/api/rentals_and_deliveries",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             bike: numericBikeId,
             rentalHours: rentalDuration,
@@ -63,12 +58,8 @@ const SchedulingPage = () => {
           "http://localhost:5000/api/rentals_and_deliveries/create-payment-intent",
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              amount: totalPrice * 100,
-            }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: totalPrice * 100 }),
           }
         );
 
@@ -82,7 +73,7 @@ const SchedulingPage = () => {
                 rental: data.rental,
                 delivery: {
                   ...data.delivery,
-                  deliveryFee: deliveryFee,
+                  deliveryFee,
                 },
                 dropOffAddress,
                 rentalCost,
@@ -110,9 +101,40 @@ const SchedulingPage = () => {
 
   return (
     <div className="scheduling-container">
-      <div className="scheduling-image">
-        <img src={Image1} alt="E-Bike" />
+      {/* New grouped section for image, name and specs */}
+      <div className="scheduling-info">
+        <h2 className="bike-name">Aventon Soltera</h2>
+        <div className="scheduling-image">
+          <img src={Image1} alt="E-Bike" />
+          <div className="bike-specs-container">
+            <h3>
+              <strong>Bike Specs</strong>
+            </h3>
+
+            <ul className="bike-specs">
+              <li>
+                <strong>Motor:</strong> 500W rear hub (35 Nm torque)
+              </li>
+              <li>
+                <strong>Top Speed:</strong> 20 mph (pedal assist & throttle)
+              </li>
+              <li>
+                <strong>Battery:</strong> 345Wh, removable (UL certified)
+              </li>
+              <li>
+                <strong>Shifting:</strong> 7-speed Shimano Tourney
+              </li>
+              <li>
+                <strong>Brakes:</strong> Mechanical disc brakes
+              </li>
+              <li>
+                <strong>Wheels:</strong> 28" Kenda Kwest tires (40-622)
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+
       <div className="scheduling-page">
         <h1>Schedule Your E-Bike Rental</h1>
         <form onSubmit={handleSubmit}>
@@ -139,17 +161,17 @@ const SchedulingPage = () => {
           </label>
           <br />
           <label>
-            <label>
-              Phone Number: {/* New phone number input */}
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter your phone number"
-                required
-              />
-            </label>
-            <br />
+            Phone Number:
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Enter your phone number"
+              required
+            />
+          </label>
+          <br />
+          <label>
             Select a Date:
             <input
               type="date"
