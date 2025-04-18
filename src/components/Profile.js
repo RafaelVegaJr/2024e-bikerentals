@@ -46,11 +46,7 @@ const Profile = () => {
       {/* Profile Content */}
       <div className="profile-contentContainer">
         {/* Profile Picture - Replace Placeholder with Actual Image */}
-        <img
-          src={profileImage}
-          alt="Profile Picture"
-          className="profile-image"
-        />
+        <img src={profileImage} alt="Profile" className="profile-image" />
 
         <h1>Profile</h1>
         <p>
