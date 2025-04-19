@@ -20,7 +20,11 @@ const bikesRouter = require("./routes/bikes");
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://electrikcruise.netlify.app"],
+    origin: [
+      "http://localhost:3000",
+      "https://electrikcruise.netlify.app",
+      "https://electrikcruise.com",
+    ],
     credentials: true,
   })
 );
