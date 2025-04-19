@@ -20,10 +20,11 @@ const bikesRouter = require("./routes/bikes");
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://electrikcruise.netlify.app"],
     credentials: true,
   })
 );
+
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 
 app.use(express.json());
