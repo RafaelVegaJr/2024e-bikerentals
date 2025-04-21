@@ -49,7 +49,9 @@ const SchedulingPage = () => {
 
       const paymentIntentResponse = await axiosInstance.post(
         "/api/rentals_and_deliveries/create-payment-intent",
-        { amount: totalPrice * 100 }
+        {
+          amount: totalPrice * 100,
+        }
       );
 
       const paymentIntentData = paymentIntentResponse.data;
