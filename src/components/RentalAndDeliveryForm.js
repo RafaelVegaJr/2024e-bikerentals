@@ -24,7 +24,7 @@ const RentalAndDeliveryForm = () => {
     try {
       console.log("Form Data to be submitted:", formData);
       const response = await fetch(
-        "http://localhost:5000/api/rentals_and_deliveries",
+        "https://two024e-bikerentals.onrender.com/api/rentals_and_deliveries",
         {
           method: "POST",
           headers: {
