@@ -30,6 +30,8 @@ router.post("/", async (req, res) => {
 
   try {
     // ✅ Check if user exists
+    console.log("Looking for user:", username);
+
     const user = await User.findOne({ where: { username } });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -113,7 +115,12 @@ router.post("/", async (req, res) => {
       delivery,
     });
   } catch (error) {
-    console.error("Error scheduling rental and delivery:", error);
+    console.error(
+      "Error scheduling rental and delivery:",
+      error.message,
+      error.stack
+    );
+
     res.status(500).json({
       error: "An error occurred while scheduling rental and delivery",
     });
