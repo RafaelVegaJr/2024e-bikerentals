@@ -55,7 +55,7 @@ const SchedulingPage = () => {
         const data = await response.json();
 
         const paymentIntentResponse = await fetch(
-          "http://localhost:5000/api/rentals_and_deliveries/create-payment-intent",
+          "https://two024e-bikerentals.onrender.com/api/rentals_and_deliveries/create-payment-intent",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
