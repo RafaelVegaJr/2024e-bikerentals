@@ -12,39 +12,43 @@ const sendEmailNotification = require("../utils/sendEmail");
 console.log("Rentals and Deliveries Router Loaded");
 
 // Route for scheduling rentals and deliveries
+
 router.post("/", async (req, res) => {
   const {
-    name,
+    username,
     bike,
     rentalHours,
-    address,
     deliveryDate,
     deliveryTime,
+    name,
+    address,
+    phone,
     dropOffAddress,
     dropOffCity,
     deliveryFee,
   } = req.body;
 
   try {
-    const { username } = req.body;
+    // ✅ Check if user exists
     const user = await User.findOne({ where: { username } });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // ✅ Check if selected bike exists
     const selectedBike = await Bike.findOne({ where: { id: bike } });
     if (!selectedBike) {
       return res.status(404).json({ error: "Bike not found" });
     }
 
+    // ✅ Setup rental period and cost
     const rentalStartDate = new Date();
     const rentalEndDate = new Date(rentalStartDate);
-    rentalEndDate.setHours(rentalStartDate.getHours() + parseInt(rentalHours));
-
-    // Calculate the rental cost at $10 per hour
+    rentalEndDate.setHours(rentalEndDate.getHours() + parseInt(rentalHours));
     const rentalCostPerHour = 10;
     const totalRentalCost = rentalCostPerHour * rentalHours;
 
+    // ✅ Combine date + time for validation
     const combinedDeliveryDateTime = moment(
       `${deliveryDate} ${deliveryTime}`,
       "YYYY-MM-DD HH:mm:ss"
@@ -54,6 +58,7 @@ router.post("/", async (req, res) => {
       throw new Error("Invalid date or time format");
     }
 
+    // ✅ Create rental
     const rental = await Rental.create({
       user_id: user.id,
       bike_id: selectedBike.id,
@@ -68,6 +73,7 @@ router.post("/", async (req, res) => {
       updatedAt: rentalStartDate,
     });
 
+    // ✅ Create delivery
     const delivery = await Delivery.create({
       name,
       address,
@@ -75,18 +81,21 @@ router.post("/", async (req, res) => {
       dropOffCity,
       deliveryDate,
       deliveryTime,
+      phone,
       rentalId: rental.id,
       createdAt: rentalStartDate,
       updatedAt: rentalStartDate,
     });
-    // Send email notification after successfully scheduling the rental and delivery
+
+    // ✅ Send email with details
     const rentalDetails = {
       name,
+      username,
       bike: selectedBike.name,
       rentalDuration: rentalHours,
       deliveryDate,
       deliveryTime,
-      rentalStartDate, // <-- Make sure you pass this
+      rentalStartDate,
       rentalEndDate,
       dropOffAddress,
       dropOffCity,
@@ -94,9 +103,9 @@ router.post("/", async (req, res) => {
       deliveryFee,
       rentalId: rental.id,
     };
-    console.log(rentalDetails); // Verify contents
 
-    sendEmailNotification(rentalDetails); // Call the email function
+    console.log("Sending email with details:", rentalDetails);
+    sendEmailNotification(rentalDetails);
 
     res.status(201).json({
       message: "Rental and delivery scheduled successfully",
