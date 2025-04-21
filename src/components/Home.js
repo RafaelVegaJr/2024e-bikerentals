@@ -21,7 +21,7 @@ const Home = () => {
         <BikeList />
       </div>
       <footer className="home-footer">
-        <p>&copy; 2024 E-Bike Rentals. All Rights Reserved.</p>
+        <p>&copy; 2025 ElectrikCruise Rentals. All Rights Reserved.</p>
       </footer>
     </div>
   );
