@@ -10,7 +10,7 @@ import Profile from "./components/Profile";
 import SchedulingPage from "./components/SchedulingPage";
 import ConfirmationPage from "./components/ConfirmationPage";
 import PaymentPage from "./components/PaymentPage";
-import SignUp from "./SignUp"; // Make sure the path is correct
+import SignUp from "./components/SignUp";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
