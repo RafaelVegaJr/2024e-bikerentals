@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Form.css"; // Import the CSS for the form
+import axiosInstance from "../axiosConfig"; // ✅ Add this line
 
 const RentalAndDeliveryForm = () => {
   const [formData, setFormData] = useState({
@@ -23,27 +24,16 @@ const RentalAndDeliveryForm = () => {
     e.preventDefault();
     try {
       console.log("Form Data to be submitted:", formData);
-      const response = await fetch(
-        "https://two024e-bikerentals.onrender.com/api/rentals_and_deliveries",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
+      const response = await axiosInstance.post(
+        "/api/rentals_and_deliveries",
+        formData
       );
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Rental and delivery scheduled successfully:", data);
-      } else {
-        console.error(
-          "Error scheduling rental and delivery:",
-          response.statusText
-        );
-      }
+      console.log("Rental and delivery scheduled successfully:", response.data);
     } catch (error) {
-      console.error("Error scheduling rental and delivery:", error);
+      console.error(
+        "Error scheduling rental and delivery:",
+        error.response?.data || error.message
+      );
     }
   };
 

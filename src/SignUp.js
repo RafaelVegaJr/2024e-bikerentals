@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
+import axiosInstance from "../axiosConfig"; // make sure this is at the top
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,6 @@ const SignUp = () => {
     e.preventDefault();
     setErrors("");
 
-    // Check for empty fields
     if (
       !formData.full_name ||
       !formData.username ||
@@ -32,30 +32,19 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch(
-        "https://two024e-bikerentals.onrender.com/api/users/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
+      const response = await axiosInstance.post("/api/users/signup", formData);
+
+      console.log("Server Response:", response.data);
+      alert(
+        `🎉 Welcome, ${formData.full_name}! Your account has been successfully created. Redirecting to login...`
       );
 
-      const data = await response.json();
-      console.log("Server Response:", data);
-
-      if (response.ok) {
-        alert(
-          `🎉 Welcome, ${formData.full_name}! Your account has been successfully created. Redirecting to login...`
-        );
-
-        window.location.href = "/login"; // Redirect user to login
-      } else {
-        setErrors(data.error || "Something went wrong.");
-      }
+      window.location.href = "/login";
     } catch (error) {
       console.error("Signup Error:", error);
-      setErrors("Failed to connect to the server.");
+      setErrors(
+        error.response?.data?.error || "Failed to connect to the server."
+      );
     }
   };
 

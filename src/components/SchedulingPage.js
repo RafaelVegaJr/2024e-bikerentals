@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
+import axiosInstance from "../axiosConfig";
 import "./SchedulingPage.css";
 import Image1 from "../images/Image17.jpg";
 
@@ -30,78 +31,55 @@ const SchedulingPage = () => {
     const totalPrice = rentalCost + deliveryFee;
 
     try {
-      const response = await fetch(
-        "https://two024e-bikerentals.onrender.com/api/rentals_and_deliveries",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            bike: numericBikeId,
-            rentalHours: rentalDuration,
-            deliveryDate: date,
-            deliveryTime: time,
-            name,
-            address,
-            phone,
-            dropOffAddress,
-            dropOffCity,
-            deliveryFee,
-            rentalCost,
-          }),
-        }
+      const response = await axiosInstance.post("/api/rentals_and_deliveries", {
+        bike: numericBikeId,
+        rentalHours: rentalDuration,
+        deliveryDate: date,
+        deliveryTime: time,
+        name,
+        address,
+        phone,
+        dropOffAddress,
+        dropOffCity,
+        deliveryFee,
+        rentalCost,
+      });
+
+      const data = response.data;
+
+      const paymentIntentResponse = await axiosInstance.post(
+        "/api/rentals_and_deliveries/create-payment-intent",
+        { amount: totalPrice * 100 }
       );
 
-      if (response.ok) {
-        const data = await response.json();
+      const paymentIntentData = paymentIntentResponse.data;
 
-        const paymentIntentResponse = await fetch(
-          "https://two024e-bikerentals.onrender.com/api/rentals_and_deliveries/create-payment-intent",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: totalPrice * 100 }),
-          }
-        );
-
-        const paymentIntentData = await paymentIntentResponse.json();
-
-        if (paymentIntentResponse.ok) {
-          navigate("/payment", {
-            state: {
-              data: {
-                clientSecret: paymentIntentData.clientSecret,
-                rental: data.rental,
-                delivery: {
-                  ...data.delivery,
-                  deliveryFee,
-                },
-                dropOffAddress,
-                rentalCost,
-                rentalDuration,
-                totalPrice,
-              },
+      navigate("/payment", {
+        state: {
+          data: {
+            clientSecret: paymentIntentData.clientSecret,
+            rental: data.rental,
+            delivery: {
+              ...data.delivery,
+              deliveryFee,
             },
-          });
-        } else {
-          console.error(
-            "Failed to create payment intent:",
-            paymentIntentData.error
-          );
-        }
-      } else {
-        console.error(
-          "Failed to schedule rental and delivery:",
-          response.statusText
-        );
-      }
+            dropOffAddress,
+            rentalCost,
+            rentalDuration,
+            totalPrice,
+          },
+        },
+      });
     } catch (error) {
-      console.error("Error:", error);
+      console.error(
+        "Error during rental or payment intent:",
+        error.response?.data || error.message
+      );
     }
   };
 
   return (
     <div className="scheduling-container">
-      {/* New grouped section for image, name and specs */}
       <div className="scheduling-info">
         <h2 className="bike-name">Aventon Soltera</h2>
         <div className="scheduling-image">
@@ -110,7 +88,6 @@ const SchedulingPage = () => {
             <h3>
               <strong>Bike Specs</strong>
             </h3>
-
             <ul className="bike-specs">
               <li>
                 <strong>Motor:</strong> 500W rear hub (35 Nm torque)
