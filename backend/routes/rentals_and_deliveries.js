@@ -30,11 +30,22 @@ router.post("/", async (req, res) => {
 
   try {
     // ✅ Check if user exists
+    // ✅ Check if user exists or create if not
     console.log("Looking for user:", username);
+    let user = await User.findOne({ where: { username } });
 
-    const user = await User.findOne({ where: { username } });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      console.log("User not found, creating new user...");
+
+      user = await User.create({
+        username,
+        full_name: name,
+        email: `${username}@example.com`, // <-- make sure this is unique or update as needed
+        password: "defaultpassword123", // <-- placeholder; you can improve this
+        role: "user",
+      });
+
+      console.log("New user created:", user.username);
     }
 
     // ✅ Check if selected bike exists
