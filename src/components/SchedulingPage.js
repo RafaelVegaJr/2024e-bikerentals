@@ -32,16 +32,17 @@ const SchedulingPage = () => {
 
     try {
       const response = await axiosInstance.post("/api/rentals_and_deliveries", {
+        username: "rafaelvega", // <-- Add this line to match backend requirement
         name,
-        bike: numericBikeId, // required by backend
-        rentalHours: rentalDuration, // rename to match backend
+        bike: numericBikeId,
+        rentalHours: rentalDuration,
         address,
+        phone,
         deliveryDate: date,
         deliveryTime: time,
         dropOffAddress,
         dropOffCity,
         deliveryFee,
-        rentalCost,
       });
 
       const data = response.data;
