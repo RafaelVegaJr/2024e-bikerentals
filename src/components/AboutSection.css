@@ -21,6 +21,29 @@
   transition: opacity 0.3s ease;
 }
 
+.about-section {
+  padding: 60px 20px;
+  text-align: left;
+  margin: 0;
+  margin-top: -80px;
+}
+
+.about-text-container {
+  margin-top: 0;
+}
+
+.about-section pre {
+  font-size: 1rem;
+  line-height: 1.8;
+  font-family: Arial, sans-serif;
+  color: #333;
+  white-space: pre-wrap;
+  text-align: left;
+  margin-left: 90px;
+  margin-right: 40px;
+  transition: opacity 0.3s ease;
+}
+
 .about-title {
   font-size: 4rem;
   margin-bottom: 40px;
