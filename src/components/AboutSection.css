@@ -44,20 +44,18 @@
   .about-title {
     font-size: 2.5rem;
     padding-left: 20px;
-    text-align: center; /* This centers the title text on mobile only */
+    text-align: center;
   }
 
   .about-title span {
-    font-size: 3.4rem;
-    line-height: 1;
     display: block;
-    font-weight: bold;
-    margin-bottom: -10px; /* Adjust if needed for better spacing */
   }
 
   .about-paragraphs {
-    margin: 20px;
+    margin: 0 auto; /* centers the block */
     font-size: 1.1rem;
-    text-align: left; /* Paragraphs stay left-aligned */
+    line-height: 1.7;
+    max-width: 90%; /* add this to keep things tighter and cleaner */
+    text-align: left; /* you can try 'justify' if you want even edge alignment */
   }
 }
