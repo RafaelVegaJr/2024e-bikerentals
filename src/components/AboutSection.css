@@ -43,23 +43,21 @@
 @media (max-width: 768px) {
   .about-title {
     font-size: 2.5rem;
-    padding-left: 40px; /* ⬅️ Fine-tuned to visually align */
-    line-height: 1;
-    margin-bottom: 10px;
+    padding-left: 20px;
+    text-align: center; /* This centers the title text on mobile only */
   }
 
   .about-title span {
     font-size: 3.4rem;
     line-height: 1;
-    margin-bottom: -43px;
     display: block;
     font-weight: bold;
+    margin-bottom: -10px; /* Adjust if needed for better spacing */
   }
 
-  .about-section pre {
-    margin-left: 20px;
-    margin-right: 20px;
+  .about-paragraphs {
+    margin: 20px;
     font-size: 1.1rem;
-    line-height: 1.75;
+    text-align: left; /* Paragraphs stay left-aligned */
   }
 }
