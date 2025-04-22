@@ -9,11 +9,12 @@
   margin-top: 0;
 }
 
-.about-paragraphs {
+.about-section pre {
   font-size: 1rem;
   line-height: 1.8;
   font-family: Arial, sans-serif;
   color: #333;
+  white-space: pre-wrap;
   text-align: left;
   margin-left: 90px;
   margin-right: 40px;
@@ -23,39 +24,42 @@
 .about-title {
   font-size: 4rem;
   margin-bottom: 40px;
+  line-height: 0.5;
   padding-left: 100px;
-  line-height: 1.2;
   transition: font-size 0.3s ease, padding-left 0.3s ease;
 }
 
-/* New span for optional line break */
-.about-title .break-mobile {
-  display: inline;
+.about-title span {
+  display: block;
+  font-size: 1.2em;
 }
 
-/* Clean up paragraph container */
-.about-paragraphs {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-left: 90px;
-  margin-right: 40px;
-  color: #333;
+/* Optional scroll effect */
+.about-title.scrolled {
+  font-size: 5rem;
 }
 
-/* Mobile Styles */
+/* ✅ Mobile View Tweaks */
 @media (max-width: 768px) {
   .about-title {
     font-size: 2.5rem;
-    padding-left: 20px;
-    text-align: center;
+    padding-left: 40px; /* ⬅️ Fine-tuned to visually align */
+    line-height: 1;
+    margin-bottom: 10px;
   }
 
-  .about-title .break-mobile {
+  .about-title span {
+    font-size: 3.4rem;
+    line-height: 1;
+    margin-bottom: -43px;
     display: block;
+    font-weight: bold;
   }
 
-  .about-paragraphs {
-    margin: 20px;
+  .about-section pre {
+    margin-left: 20px;
+    margin-right: 20px;
     font-size: 1.1rem;
+    line-height: 1.75;
   }
 }
