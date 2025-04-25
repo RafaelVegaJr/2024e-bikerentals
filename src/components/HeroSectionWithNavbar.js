@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import videoSource from "../videos/video2.mp4"; // Correct import path for the video
 import "./HeroSectionWithNavbar.css"; // Importing the CSS file
+import { useLocation } from "react-router-dom";
 
 export default function HeroSectionWithNavbar() {
   const [showNav, setShowNav] = React.useState(false);
@@ -22,12 +23,18 @@ export default function HeroSectionWithNavbar() {
       });
     }
   }, []);
+  const location = useLocation();
 
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
+  const scrollToBottom = (e) => {
+    // Only scroll if on homepage
+    if (location.pathname === "/" || location.pathname === "/home") {
+      e.preventDefault();
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+    // Otherwise, let the link navigate normally (like to /scheduling)
   };
 
   return (
@@ -90,16 +97,8 @@ export default function HeroSectionWithNavbar() {
                 </MDBNavbarItem>
                 <MDBNavbarItem>
                   <a
-                    href="#bottom" // Adding a valid href attribute
+                    href="#bottom"
                     onClick={scrollToBottom}
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "none",
-                      color: "inherit",
-                      display: "inline-block",
-                      lineHeight: "inherit",
-                      verticalAlign: "middle",
-                    }}
                     className="nav-link"
                   >
                     Book Now
@@ -118,7 +117,6 @@ export default function HeroSectionWithNavbar() {
               href="#bottom"
               onClick={scrollToBottom}
               className="btn btn-outline-light btn-lg"
-              role="button"
             >
               Let's Ride
             </a>
