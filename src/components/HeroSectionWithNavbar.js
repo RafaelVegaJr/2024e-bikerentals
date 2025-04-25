@@ -8,12 +8,15 @@ import {
   MDBContainer,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import videoSource from "../videos/video2.mp4"; // Correct import path for the video
-import "./HeroSectionWithNavbar.css"; // Importing the CSS file
-import { useLocation } from "react-router-dom";
+import videoSource from "../videos/video2.mp4";
+import "./HeroSectionWithNavbar.css";
+import { useLocation, Link } from "react-router-dom";
 
 export default function HeroSectionWithNavbar() {
   const [showNav, setShowNav] = React.useState(false);
+  const location = useLocation();
+
+  // Looping video fix
   useEffect(() => {
     const video = document.querySelector(".bg-video");
     if (video) {
@@ -23,10 +26,10 @@ export default function HeroSectionWithNavbar() {
       });
     }
   }, []);
-  const location = useLocation();
 
+  // Scroll to bottom, but ONLY on Home page
   const scrollToBottom = (e) => {
-    // Only scroll if on homepage
+    // Only scroll if on homepage ("/" or "/home")
     if (location.pathname === "/" || location.pathname === "/home") {
       e.preventDefault();
       window.scrollTo({
@@ -34,7 +37,7 @@ export default function HeroSectionWithNavbar() {
         behavior: "smooth",
       });
     }
-    // Otherwise, let the link navigate normally (like to /scheduling)
+    // If not on home, do nothing (let router navigate)
   };
 
   return (
@@ -81,21 +84,22 @@ export default function HeroSectionWithNavbar() {
             >
               <MDBNavbarNav className="mb-2 mb-lg-0 justify-content-end">
                 <MDBNavbarItem active>
-                  <a className="nav-link" href="/home">
+                  <Link className="nav-link" to="/home">
                     Home
-                  </a>
+                  </Link>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
-                  <a className="nav-link" href="/login">
+                  <Link className="nav-link" to="/login">
                     Login
-                  </a>
+                  </Link>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
-                  <a className="nav-link" href="/signup">
+                  <Link className="nav-link" to="/signup">
                     Sign-Up
-                  </a>
+                  </Link>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
+                  {/* This only scrolls to bottom if on Home */}
                   <a
                     href="#bottom"
                     onClick={scrollToBottom}
@@ -113,6 +117,7 @@ export default function HeroSectionWithNavbar() {
           <div className="text-white text-center">
             <h1 className="mb-3">Explore the Great Outdoors</h1>
             <h4 className="mb-3">Join the Ride Today</h4>
+            {/* This button also only scrolls to bottom if on Home */}
             <a
               href="#bottom"
               onClick={scrollToBottom}
