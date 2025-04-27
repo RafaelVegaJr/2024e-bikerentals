@@ -115,3 +115,8 @@
     object-fit: cover;
   }
 }
+@media (max-width: 768px) {
+  .contentSection {
+    padding-top: 0 !important;
+  }
+}

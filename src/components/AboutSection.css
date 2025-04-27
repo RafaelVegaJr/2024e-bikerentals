@@ -1,7 +1,7 @@
 .about-section {
-  padding: 60px 20px;
-  margin: 0;
-  margin-top: -80px;
+  max-width: 700px; /* Keeps text readable, not too wide */
+  margin: 0 0 0 60px; /* Push the entire section a bit to the right */
+  padding: 24px 20px 40px 0; /* Reduce top padding here! */
 }
 
 .about-text-container {
@@ -9,12 +9,12 @@
 }
 
 .about-title {
-  font-size: 4rem;
-  margin-bottom: 40px;
-  line-height: 1.1; /* Adjusted to prevent overlap */
-  padding-left: 100px;
-  transition: font-size 0.3s ease, padding-left 0.3s ease;
+  font-size: 3.2rem; /* Adjust as needed */
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 32px;
   text-align: left;
+  margin-left: 0px; /* Optional: for a little indent, like your screenshot */
 }
 
 .about-title span {
@@ -27,10 +27,11 @@
   line-height: 1.8;
   font-family: Arial, sans-serif;
   color: #333;
-  margin-left: 90px;
-  margin-right: 40px;
-  transition: opacity 0.3s ease;
+  margin-left: 0; /* Remove the big left margin */
+  margin-right: 0; /* Remove the right margin */
+  max-width: 600px; /* Optional: keep text readable */
   text-align: left;
+  transition: opacity 0.3s ease;
 }
 
 /* Scroll effect */
@@ -46,6 +47,25 @@
     text-align: center;
   }
 
+  .about-paragraphs {
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 90%;
+    text-align: left;
+  }
+}
+@media (max-width: 768px) {
+  .about-section {
+    padding-top: 0 !important;
+    margin-left: 0 !important;
+    padding-right: 0;
+  }
+  .about-title {
+    font-size: 2.5rem;
+    padding-left: 20px;
+    text-align: center;
+  }
   .about-paragraphs {
     margin: 0 auto;
     font-size: 1.1rem;

@@ -1,43 +1,62 @@
-// routes/bikes.js
-const express = require("express");
-const router = express.Router();
-const Bike = require("../models/Bike");
+import React, { useEffect } from "react";
+import "./AboutSection.css";
 
-// GET: Fetch all bikes
-router.get("/", async (req, res) => {
-  try {
-    const bikes = await Bike.findAll({
-      attributes: [
-        "id",
-        "name",
-        "description",
-        "price",
-        "availability_status",
-        "type",
-      ],
-    });
-    res.json(bikes);
-  } catch (error) {
-    console.error("Error fetching bikes:", error);
-    res.status(500).json({ error: "An error occurred while fetching bikes" });
-  }
-});
+const AboutSection = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const aboutTitle = document.querySelector(".about-title");
+      const aboutText = document.querySelector(".about-paragraphs");
+      const scrollPosition = window.scrollY;
 
-// ✅ POST: Add a bike manually (for testing or seeding)
-router.post("/add", async (req, res) => {
-  try {
-    const bike = await Bike.create({
-      name: "E-Bike",
-      description: "Aventon e-bike perfect for city rides.",
-      price: 25,
-      availability_status: "available",
-      type: "hybrid",
-    });
-    res.json(bike);
-  } catch (error) {
-    console.error("Error adding bike:", error);
-    res.status(500).json({ error: "Failed to add bike" });
-  }
-});
+      if (scrollPosition > 50) {
+        aboutTitle.classList.add("scrolled");
+        aboutText.classList.add("scrolled");
+      } else {
+        aboutTitle.classList.remove("scrolled");
+        aboutText.classList.remove("scrolled");
+      }
+    };
 
-module.exports = router;
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="about-section">
+      <div className="about-section-content">
+        {/* <-- Flex container */}
+        <div className="about-text-container">
+          <h1 className="about-title">
+            <span>Discover</span>
+            <span>Our</span>
+            <span>E-Bike</span>
+            <span>Rentals</span>
+          </h1>
+          <div className="about-paragraphs">
+            <p>
+              Looking for an adventure? We’re proud to offer the Aventon
+              Soltera—a sleek, high-performance electric bike perfect for
+              cruising city streets or enjoying a scenic ride.
+            </p>
+            <p>
+              Whether you're commuting, exploring, or just out for some fresh
+              air, our e-bike delivers the perfect mix of comfort, power, and
+              style.
+            </p>
+            <p>
+              We're all about providing an easy, enjoyable rental experience
+              with a focus on quality, simplicity, and personalized service. Try
+              it for yourself and feel the ride.
+            </p>
+          </div>
+        </div>
+        {/* Add your image here! */}
+        <div className="about-section-image">
+          <img src="your-image-url-or-import-here" alt="E-Bike" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AboutSection;
