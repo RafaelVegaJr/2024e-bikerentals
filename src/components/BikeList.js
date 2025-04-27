@@ -27,7 +27,7 @@ const BikeList = () => {
   };
 
   return (
-    <div id="bottom" className="bike-list">
+    <div id="bike-list" className="bike-list">
       {bike && (
         <div className="bike-card">
           <img src={Image1} alt={bike.name} className="bike-image" />

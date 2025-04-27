@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -6,10 +6,38 @@ import "./SchedulingPage.css";
 import Image1 from "../images/Image17.jpg";
 
 const SchedulingPage = () => {
-  useEffect(() => {
+  // 👇 SCROLL-TO-TOP: This effect runs once when this page loads
+  useLayoutEffect(() => {
+    // Scroll to top immediately
     window.scrollTo(0, 0);
+
+    // Try again after a short delay, just in case images push content down
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 80);
+
+    // Listen for image loads to scroll to top again if needed
+    const imgs = document.querySelectorAll("img");
+    let counter = 0;
+    function onImgLoad() {
+      counter++;
+      if (counter === imgs.length) {
+        window.scrollTo(0, 0);
+      }
+    }
+    imgs.forEach((img) => {
+      img.addEventListener("load", onImgLoad);
+    });
+
+    // Cleanup listeners
+    return () => {
+      imgs.forEach((img) => {
+        img.removeEventListener("load", onImgLoad);
+      });
+    };
   }, []);
 
+  // ---- REST OF YOUR STATE AND LOGIC ----
   const { bikeId } = useParams();
   const numericBikeId = Number(bikeId);
   const [date, setDate] = useState("");
@@ -32,7 +60,7 @@ const SchedulingPage = () => {
 
     try {
       const response = await axiosInstance.post("/api/rentals_and_deliveries", {
-        username: "rafaelvega", // <-- Add this line to match backend requirement
+        username: "rafaelvega",
         name,
         bike: numericBikeId,
         rentalHours: rentalDuration,
@@ -80,6 +108,7 @@ const SchedulingPage = () => {
     }
   };
 
+  // ---- YOUR JSX BELOW ----
   return (
     <div className="scheduling-container">
       <div className="scheduling-info">
