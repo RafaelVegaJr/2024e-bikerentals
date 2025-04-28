@@ -9,7 +9,7 @@ import {
   MDBContainer,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import videoSource from "../videos/video2.mp4";
+import videoSource from "../videos/video3.mp4";
 import "./HeroSectionWithNavbar.css";
 
 export default function HeroSectionWithNavbar() {
