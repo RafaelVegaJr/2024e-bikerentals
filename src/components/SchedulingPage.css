@@ -2,7 +2,7 @@
   display: flex;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
-  flex-wrap: wrap; /* Helps on smaller screens */
+  flex-wrap: wrap;
 }
 
 body {
@@ -31,27 +31,6 @@ body {
   max-width: 250px;
   line-height: 1.4;
 }
-/* Remove global button styles */
-button {
-  all: unset;
-}
-
-/* Style the submit button directly */
-.scheduling-right button[type="submit"] {
-  padding: 14px;
-  background: linear-gradient(to right, #00c896, #00d4ff);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-}
-
-.scheduling-right button[type="submit"]:hover {
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
-  transform: translateY(-2px);
-}
 
 .scheduling-right {
   flex: 1;
@@ -60,12 +39,6 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.scheduling-right h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-align: center;
 }
 
 form {
@@ -86,8 +59,13 @@ select {
 }
 
 button {
+  all: unset;
+}
+
+/* Submit button only */
+.scheduling-right button[type="submit"] {
   padding: 14px;
-  background: transparent;
+  background: linear-gradient(to right, #00c896, #00d4ff);
   color: white;
   border: none;
   border-radius: 30px;
@@ -96,17 +74,12 @@ button {
   transition: 0.3s ease-in-out;
 }
 
-button:hover {
+.scheduling-right button[type="submit"]:hover {
   box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
   transform: translateY(-2px);
 }
 
-.bike-image {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
-  transform: translateX(-40px); /* adjust as needed to show full front tire */
-}
+/* Spec Button */
 .spec-btn {
   padding: 12px 24px;
   border: 2px solid white;
@@ -121,8 +94,10 @@ button:hover {
 
 .spec-btn:hover {
   background: white;
-  color: #00c896; /* or use #00d4ff if you want the hover to match your gradient */
+  color: #00c896;
 }
+
+/* Back button */
 .back-btn {
   position: absolute;
   top: 20px;
@@ -140,6 +115,34 @@ button:hover {
 .back-btn:hover {
   text-decoration: underline;
 }
+
+/* Centering the submit button */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Bike image tweaks */
+.bike-image {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  transform: translateX(-40px);
+}
+form input,
+form select,
+form .button-container button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
   .scheduling-wrapper {
     flex-direction: column;
@@ -148,7 +151,7 @@ button:hover {
 
   .bike-image {
     max-width: 250px;
-    transform: translateX(-20px); /* smaller shift for mobile */
+    transform: translateX(-20px);
   }
 
   .scheduling-left,

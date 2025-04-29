@@ -202,7 +202,9 @@ const SchedulingPage = () => {
             placeholder="Drop-off Address"
             required
           />
-          <button type="submit">Schedule Rental</button>
+          <div className="button-container">
+            <button type="submit">Schedule Rental</button>
+          </div>
         </form>
       </div>
     </div>
