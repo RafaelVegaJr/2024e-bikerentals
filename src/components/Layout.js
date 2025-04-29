@@ -3,7 +3,7 @@ import { Outlet, useLocation, Link } from "react-router-dom";
 import HeroSectionWithNavbar from "./HeroSectionWithNavbar";
 import "./Layout.css";
 import { Button } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
+// import HomeIcon from "@mui/icons-material/Home";
 
 const Layout = () => {
   const location = useLocation();
