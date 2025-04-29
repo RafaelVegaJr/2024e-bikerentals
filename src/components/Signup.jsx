@@ -1,6 +1,6 @@
 // src/components/SignupForm.jsx
 import React, { useState } from "react";
-import "./Signup.css";
+import "./SignUp.css";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
