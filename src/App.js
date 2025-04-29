@@ -13,7 +13,7 @@ import PaymentPage from "./components/PaymentPage";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import ScrollToTop from "./components/ScrollToTop";
-import StytchWrapper from "./components/StytchWrapper"; // <-- ⬅️ import the wrapper!
+
 import Signup from "./components/Signup"; // ✅ match the actual filename
 
 const stripePromise = loadStripe(
@@ -24,45 +24,41 @@ function App() {
   return (
     <div className="App">
       <ScrollToTop />
-      <StytchWrapper>
-        {" "}
-        {/* ⬅️ wrap EVERYTHING inside Stytch */}
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/home" />} />
-            <Route path="home" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Navigate to="/home" />} />
+          <Route path="home" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
 
-            <Route
-              path="rent_and_delivery"
-              element={<ProtectedRoute component={RentalAndDeliveryForm} />}
-            />
-            <Route
-              path="profile"
-              element={<ProtectedRoute component={Profile} />}
-            />
-            <Route path="book" element={<Navigate to="/home#bike-list" />} />
-            <Route path="schedule/:bikeId" element={<SchedulingPage />} />
-            <Route
-              path="payment"
-              element={
-                <Elements stripe={stripePromise}>
-                  <PaymentPage />
-                </Elements>
-              }
-            />
-            <Route
-              path="confirmation"
-              element={
-                <Elements stripe={stripePromise}>
-                  <ConfirmationPage />
-                </Elements>
-              }
-            />
-          </Route>
-        </Routes>
-      </StytchWrapper>
+          <Route
+            path="rent_and_delivery"
+            element={<ProtectedRoute component={RentalAndDeliveryForm} />}
+          />
+          <Route
+            path="profile"
+            element={<ProtectedRoute component={Profile} />}
+          />
+          <Route path="book" element={<Navigate to="/home#bike-list" />} />
+          <Route path="schedule/:bikeId" element={<SchedulingPage />} />
+          <Route
+            path="payment"
+            element={
+              <Elements stripe={stripePromise}>
+                <PaymentPage />
+              </Elements>
+            }
+          />
+          <Route
+            path="confirmation"
+            element={
+              <Elements stripe={stripePromise}>
+                <ConfirmationPage />
+              </Elements>
+            }
+          />
+        </Route>
+      </Routes>
     </div>
   );
 }
