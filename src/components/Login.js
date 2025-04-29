@@ -36,60 +36,48 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      {/* Navbar */}
-      <header className="login-navbar">
-        <nav>
-          <Link to="/home" className="login-nav-link">
-            HOME
+    <div className="login-wrapper">
+      <div className="login-left">
+        <h2>Welcome Back</h2>
+        <p>Log in and hit the road with our e-bikes today.</p>
+      </div>
+
+      <div className="login-right">
+        <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleLogin}>
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="forgot-password">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+          <button type="submit" className="login-btn">
+            Log In
+          </button>
+        </form>
+        <p>
+          Don't have an account?{" "}
+          <Link to="/register" className="login-nav-link">
+            Sign up
           </Link>
-        </nav>
-      </header>
-
-      {/* Main Content */}
-      <main className="login-mainContainer">
-        <div className="login-formContainer">
-          <h2>Login</h2>
-          {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleLogin}>
-            <div className="inputContainer">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="inputContainer">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Your Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="forgot-password">
-              <Link to="/forgot-password">Forgot Password?</Link>
-            </div>
-
-            <button type="submit" className="login-button">
-              Log In
-            </button>
-          </form>
-
-          <p>
-            Don't have an account?{" "}
-            <Link to="/register" className="login-nav-link">
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </main>
+        </p>
+      </div>
     </div>
   );
 };

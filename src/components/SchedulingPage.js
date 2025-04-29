@@ -3,20 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
 import "./SchedulingPage.css";
-import Image1 from "../images/Image17.jpg";
+import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
-  // 👇 SCROLL-TO-TOP: This effect runs once when this page loads
   useLayoutEffect(() => {
-    // Scroll to top immediately
     window.scrollTo(0, 0);
-
-    // Try again after a short delay, just in case images push content down
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 80);
-
-    // Listen for image loads to scroll to top again if needed
     const imgs = document.querySelectorAll("img");
     let counter = 0;
     function onImgLoad() {
@@ -28,8 +22,6 @@ const SchedulingPage = () => {
     imgs.forEach((img) => {
       img.addEventListener("load", onImgLoad);
     });
-
-    // Cleanup listeners
     return () => {
       imgs.forEach((img) => {
         img.removeEventListener("load", onImgLoad);
@@ -37,7 +29,6 @@ const SchedulingPage = () => {
     };
   }, []);
 
-  // ---- REST OF YOUR STATE AND LOGIC ----
   const { bikeId } = useParams();
   const numericBikeId = Number(bikeId);
   const [date, setDate] = useState("");
@@ -48,11 +39,11 @@ const SchedulingPage = () => {
   const [address, setAddress] = useState("");
   const [rentalDuration, setRentalDuration] = useState(1);
   const [phone, setPhone] = useState("");
+  const [showSpecs, setShowSpecs] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const deliveryFee = getDeliveryFee(dropOffCity);
     const bikeRentalCostPerHour = 10;
     const rentalCost = bikeRentalCostPerHour * rentalDuration;
@@ -108,18 +99,22 @@ const SchedulingPage = () => {
     }
   };
 
-  // ---- YOUR JSX BELOW ----
   return (
-    <div className="scheduling-container">
-      <div className="scheduling-info">
-        <h2 className="bike-name">Aventon Soltera</h2>
-        <div className="scheduling-image">
-          <img src={Image1} alt="E-Bike" />
-          <div className="bike-specs-container">
-            <h3>
-              <strong>Bike Specs</strong>
-            </h3>
-            <ul className="bike-specs">
+    <div className="scheduling-wrapper">
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
+
+      {/* Left Side with Bike Image and Specs Toggle */}
+      <div className="scheduling-left">
+        <img src={Image1} alt="Aventon Soltera" className="bike-image" />
+        <button className="spec-btn" onClick={() => setShowSpecs(!showSpecs)}>
+          {showSpecs ? "Hide Specs" : "View Specs"}
+        </button>
+        {showSpecs && (
+          <div className="spec-modal">
+            <h3>Bike Specs</h3>
+            <ul>
               <li>
                 <strong>Motor:</strong> 500W rear hub (35 Nm torque)
               </li>
@@ -140,104 +135,73 @@ const SchedulingPage = () => {
               </li>
             </ul>
           </div>
-        </div>
+        )}
       </div>
 
-      <div className="scheduling-page">
-        <h1>Schedule Your E-Bike Rental</h1>
+      {/* Right Side with the Rental Form */}
+      <div className="scheduling-right">
+        {/* <h2>Schedule Your E-Bike Rental</h2> */}
         <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Address:
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Enter your address"
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Phone Number:
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Enter your phone number"
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Select a Date:
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Select a Time:
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Rental Duration (in hours):
-            <input
-              type="number"
-              min="1"
-              value={rentalDuration}
-              onChange={(e) => setRentalDuration(e.target.value)}
-              placeholder="Enter rental duration in hours"
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Drop-off City:
-            <select
-              value={dropOffCity}
-              onChange={(e) => setDropOffCity(e.target.value)}
-              required
-            >
-              <option value="">Select a city</option>
-              <option value="Indio">Indio</option>
-              <option value="Coachella">Coachella</option>
-              <option value="Palm Desert">Palm Desert</option>
-              <option value="Cathedral City">Cathedral City</option>
-              <option value="Palm Springs">Palm Springs</option>
-            </select>
-          </label>
-          <br />
-          <label>
-            Drop-off Address:
-            <input
-              type="text"
-              value={dropOffAddress}
-              onChange={(e) => setDropOffAddress(e.target.value)}
-              placeholder="Enter drop-off address"
-              required
-            />
-          </label>
-          <br />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
+            required
+          />
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Your Address"
+            required
+          />
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Your Phone Number"
+            required
+          />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            min="1"
+            value={rentalDuration}
+            onChange={(e) => setRentalDuration(e.target.value)}
+            placeholder="Rental Duration (hours)"
+            required
+          />
+          <select
+            value={dropOffCity}
+            onChange={(e) => setDropOffCity(e.target.value)}
+            required
+          >
+            <option value="">Select a city</option>
+            <option value="Indio">Indio</option>
+            <option value="Coachella">Coachella</option>
+            <option value="Palm Desert">Palm Desert</option>
+            <option value="Cathedral City">Cathedral City</option>
+            <option value="Palm Springs">Palm Springs</option>
+          </select>
+          <input
+            type="text"
+            value={dropOffAddress}
+            onChange={(e) => setDropOffAddress(e.target.value)}
+            placeholder="Drop-off Address"
+            required
+          />
           <button type="submit">Schedule Rental</button>
         </form>
       </div>

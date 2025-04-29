@@ -11,6 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import videoSource from "../videos/video3.mp4";
 import "./HeroSectionWithNavbar.css";
+import { Link } from "react-router-dom";
 
 export default function HeroSectionWithNavbar() {
   const [showNav, setShowNav] = React.useState(false);
@@ -82,9 +83,9 @@ export default function HeroSectionWithNavbar() {
             >
               <MDBNavbarNav className="mb-2 mb-lg-0 justify-content-end">
                 <MDBNavbarItem active>
-                  <a className="nav-link" href="/home">
+                  <Link className="nav-link" to="/home">
                     Home
-                  </a>
+                  </Link>
                 </MDBNavbarItem>
                 <MDBNavbarItem>
                   <a className="nav-link" href="/login">

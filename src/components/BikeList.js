@@ -4,7 +4,7 @@ import axios from "../axiosConfig";
 import "./BikeList.css";
 
 // Importing the single image for Hybrid Bike
-import Image1 from "../images/Image17.jpg";
+import Image1 from "../images/Image17.png";
 
 const BikeList = () => {
   const [bike, setBike] = useState(null);
