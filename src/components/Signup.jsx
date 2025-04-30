@@ -1,7 +1,7 @@
 // src/components/SignupForm.jsx
 import React, { useState } from "react";
 import "./SignUp.css";
-import axios from "axios";
+import axiosInstance from "../axiosConfig"; // adjust path if needed
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,8 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/signup", formData); // <-- Adjust if your route is different
+      const response = await axiosInstance.post("/api/users/signup", formData);
+      // <-- Adjust if your route is different
       console.log("User created:", response.data);
       // Optionally redirect or clear form here
     } catch (error) {
