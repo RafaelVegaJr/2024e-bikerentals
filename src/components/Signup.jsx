@@ -1,6 +1,7 @@
 // src/components/SignupForm.jsx
 import React, { useState } from "react";
 import "./SignUp.css";
+import axios from "axios";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -14,11 +15,18 @@ const SignupForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
-    // You would send formData to your backend here
+    try {
+      const response = await axios.post("/api/users/signup", formData); // <-- Adjust if your route is different
+      console.log("User created:", response.data);
+      // Optionally redirect or clear form here
+    } catch (error) {
+      console.error("Signup error:", error.response?.data || error.message);
+      alert(error.response?.data?.error || "Signup failed");
+    }
   };
+
   const [showModal, setShowModal] = useState(false);
 
   return (
