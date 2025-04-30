@@ -1,7 +1,7 @@
 // src/components/SignupForm.jsx
 import React, { useState } from "react";
 import "./SignUp.css";
-import axiosInstance from "../axiosConfig"; // adjust path if needed
+import axiosInstance from "../axiosConfig";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -18,10 +18,15 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post("/api/users/signup", formData);
-      // <-- Adjust if your route is different
+      const payload = {
+        ...formData,
+        full_name: formData.fullName, // rename for backend
+      };
+      delete payload.fullName; // remove the camelCase version
+
+      const response = await axiosInstance.post("/api/users/signup", payload);
+
       console.log("User created:", response.data);
-      // Optionally redirect or clear form here
     } catch (error) {
       console.error("Signup error:", error.response?.data || error.message);
       alert(error.response?.data?.error || "Signup failed");
