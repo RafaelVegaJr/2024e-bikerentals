@@ -89,6 +89,18 @@ form {
   background-color: #eaeaea; /* subtle focus change */
   box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
 }
+.input-group input {
+  background-color: #eaf2ff; /* Or use #ffffff for pure white */
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 30px !important;
+  font-size: 16px;
+}
+.input-group input:-webkit-autofill {
+  background-color: #eaf2ff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #eaf2ff inset;
+}
 
 .signup-btn {
   padding: 12px;
