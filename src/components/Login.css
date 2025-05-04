@@ -142,3 +142,23 @@ form {
 .input-group input {
   border-radius: 30px !important;
 }
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1rem;
+  color: black;
+  z-index: 10;
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    top: 12px;
+    left: 12px;
+    font-size: 0.9rem;
+  }
+
+  .login-left h2 {
+    margin-top: 30px; /* Push the "Welcome Back" down to avoid overlap */
+  }
+}

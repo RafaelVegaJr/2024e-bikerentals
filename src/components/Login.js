@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../axiosConfig"; // Import Axios
+import axios from "../axiosConfig";
 import Cookies from "js-cookie";
 import "./Login.css";
 
@@ -8,35 +8,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Redirect after login
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
-    console.log("🔹 Login button clicked");
-
     try {
-      console.log("🔹 Sending request to /api/users/login...");
       const response = await axios.post("/api/users/login", {
         email,
         password,
       });
-
-      console.log("🔹 Response received:", response);
-
-      // Store token & redirect
       Cookies.set("token", response.data.token, { expires: 1 });
-      console.log("✅ Login successful! Redirecting...");
       navigate("/profile");
     } catch (err) {
-      console.error("❌ Login failed:", err.response?.data || err.message);
       setError("Invalid email or password");
     }
   };
 
   return (
     <div className="login-wrapper">
+      {/* ✅ Only one back button here */}
+
       <div className="login-left">
         <h2>Welcome Back</h2>
         <p>Log in and hit the road with our e-bikes today.</p>
@@ -72,7 +64,7 @@ const Login = () => {
           </button>
         </form>
         <p>
-          Don't have an account?{" "}
+          Don’t have an account?{" "}
           <Link to="/register" className="login-nav-link">
             Sign up
           </Link>
