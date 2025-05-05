@@ -26,7 +26,7 @@ const SchedulingPage = () => {
   const [dropOffCity, setDropOffCity] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [rentalDuration, setRentalDuration] = useState(1);
+  const [rentalDuration, setRentalDuration] = useState("");
   const [phone, setPhone] = useState("");
   const [showSpecs, setShowSpecs] = useState(false);
   const navigate = useNavigate();
@@ -178,14 +178,20 @@ const SchedulingPage = () => {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+            placeholder="Select a date" // ✅ iOS may ignore this, see below
+            onFocus={(e) => (e.target.type = "date")}
             required
           />
+
           <input
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
+            placeholder="Select a time" // ✅ again, iOS may not show this
+            onFocus={(e) => (e.target.type = "time")}
             required
           />
+
           <input
             type="number"
             min="1"
