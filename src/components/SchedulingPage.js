@@ -7,21 +7,27 @@ import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
   useLayoutEffect(() => {
+    window.history.scrollRestoration = "manual"; // prevents browser from auto-scrolling
+
     window.scrollTo(0, 0);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 80);
+
     const imgs = document.querySelectorAll("img");
     let counter = 0;
+
     function onImgLoad() {
       counter++;
       if (counter === imgs.length) {
         window.scrollTo(0, 0);
       }
     }
+
     imgs.forEach((img) => {
       img.addEventListener("load", onImgLoad);
     });
+
     return () => {
       imgs.forEach((img) => {
         img.removeEventListener("load", onImgLoad);
