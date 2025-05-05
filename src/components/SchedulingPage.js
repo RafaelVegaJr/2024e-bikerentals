@@ -96,7 +96,7 @@ const SchedulingPage = () => {
 
       {/* Left Side with Bike Image and Specs Toggle */}
       <div className="scheduling-left">
-        <div style={{ width: "100%", height: "202px", overflow: "hidden" }}>
+        <div style={{ width: "100%", height: "200px", overflow: "hidden" }}>
           <img
             src={Image1}
             alt="Aventon Soltera"

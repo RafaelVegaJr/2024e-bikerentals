@@ -211,3 +211,19 @@ form {
     padding: 30px;
   }
 }
+input[type="date"],
+input[type="time"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 14px 20px !important;
+  height: 52px !important;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
