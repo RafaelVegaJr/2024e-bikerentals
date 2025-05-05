@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -8,27 +8,13 @@ import Image1 from "../images/Image17.png";
 const SchedulingPage = () => {
   const bikeImgRef = useRef(null);
 
-  useLayoutEffect(() => {
-    window.history.scrollRestoration = "manual";
-
-    const scrollToTop = () => {
+  useEffect(() => {
+    // Delay scroll until after layout paint and image load
+    const timeout = setTimeout(() => {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    };
+    }, 200); // wait for layout shift to finish
 
-    // First attempt
-    scrollToTop();
-    setTimeout(scrollToTop, 0);
-
-    // Last-chance scroll after DOM paints
-    requestAnimationFrame(() => {
-      setTimeout(scrollToTop, 0);
-    });
-
-    const img = bikeImgRef.current;
-    if (img && !img.complete) {
-      img.addEventListener("load", scrollToTop);
-      return () => img.removeEventListener("load", scrollToTop);
-    }
+    return () => clearTimeout(timeout);
   }, []);
 
   const { bikeId } = useParams();

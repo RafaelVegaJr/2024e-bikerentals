@@ -13,6 +13,8 @@ import PaymentPage from "./components/PaymentPage";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import ScrollToTop from "./components/ScrollToTop";
+import ScrollResetOnNavigation from "./components/ScrollResetOnNavigation";
+import TestScrollPage from "./components/TestScrollPage";
 
 import Signup from "./components/Signup"; // ✅ match the actual filename
 
@@ -23,6 +25,7 @@ const stripePromise = loadStripe(
 function App() {
   return (
     <div className="App">
+      <ScrollResetOnNavigation />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -58,6 +61,7 @@ function App() {
             }
           />
         </Route>
+        <Route path="/test-scroll" element={<TestScrollPage />} />
       </Routes>
     </div>
   );
