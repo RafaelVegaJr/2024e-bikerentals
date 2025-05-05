@@ -18,14 +18,16 @@ const BikeList = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const handleBookNow = () => {
+  const handleBookNow = (e) => {
+    e.preventDefault(); // stops any anchor-related behavior
+    e.stopPropagation(); // stops bubbling up
+
     if (bike) {
       navigate(`/schedule/${bike.id}`, { state: { bike } });
 
-      // Force scroll to top after brief delay
       setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "instant" }); // or "auto"
-      }, 50);
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }, 100);
     }
   };
 

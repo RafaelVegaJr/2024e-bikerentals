@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -6,33 +6,29 @@ import "./SchedulingPage.css";
 import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
+  const bikeImgRef = useRef(null);
+
   useLayoutEffect(() => {
-    window.history.scrollRestoration = "manual"; // prevents browser from auto-scrolling
+    window.history.scrollRestoration = "manual";
 
-    window.scrollTo(0, 0);
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 80);
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    };
 
-    const imgs = document.querySelectorAll("img");
-    let counter = 0;
+    // First attempt
+    scrollToTop();
+    setTimeout(scrollToTop, 0);
 
-    function onImgLoad() {
-      counter++;
-      if (counter === imgs.length) {
-        window.scrollTo(0, 0);
-      }
-    }
-
-    imgs.forEach((img) => {
-      img.addEventListener("load", onImgLoad);
+    // Last-chance scroll after DOM paints
+    requestAnimationFrame(() => {
+      setTimeout(scrollToTop, 0);
     });
 
-    return () => {
-      imgs.forEach((img) => {
-        img.removeEventListener("load", onImgLoad);
-      });
-    };
+    const img = bikeImgRef.current;
+    if (img && !img.complete) {
+      img.addEventListener("load", scrollToTop);
+      return () => img.removeEventListener("load", scrollToTop);
+    }
   }, []);
 
   const { bikeId } = useParams();
@@ -113,7 +109,13 @@ const SchedulingPage = () => {
 
       {/* Left Side with Bike Image and Specs Toggle */}
       <div className="scheduling-left">
-        <img src={Image1} alt="Aventon Soltera" className="bike-image" />
+        <img
+          ref={bikeImgRef}
+          src={Image1}
+          alt="Aventon Soltera"
+          className="bike-image"
+        />
+
         <button className="spec-btn" onClick={() => setShowSpecs(!showSpecs)}>
           {showSpecs ? "Hide Specs" : "View Specs"}
         </button>
