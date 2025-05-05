@@ -13,23 +13,24 @@ const SchedulingPage = () => {
     scrollToTop();
     setTimeout(scrollToTop, 200);
     setTimeout(scrollToTop, 500);
-    setTimeout(scrollToTop, 800); // Final nuke
-
-    return () => {};
+    setTimeout(scrollToTop, 800);
   }, []);
 
   const { bikeId } = useParams();
   const numericBikeId = Number(bikeId);
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [dropOffAddress, setDropOffAddress] = useState("");
   const [dropOffCity, setDropOffCity] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [rentalDuration, setRentalDuration] = useState("");
-  const [phone, setPhone] = useState("");
+  const [rentalDuration, setRentalDuration] = useState(""); // start empty
   const [showSpecs, setShowSpecs] = useState(false);
-  const navigate = useNavigate();
+  const [dateType, setDateType] = useState("text");
+  const [timeType, setTimeType] = useState("text");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,7 +95,7 @@ const SchedulingPage = () => {
         ← Back
       </button>
 
-      {/* Left Side with Bike Image and Specs Toggle */}
+      {/* Left Side */}
       <div className="scheduling-left">
         <div
           style={{
@@ -122,6 +123,7 @@ const SchedulingPage = () => {
         <button className="spec-btn" onClick={() => setShowSpecs(!showSpecs)}>
           {showSpecs ? "Hide Specs" : "View Specs"}
         </button>
+
         {showSpecs && (
           <div className="spec-modal">
             <h3>Bike Specs</h3>
@@ -149,9 +151,8 @@ const SchedulingPage = () => {
         )}
       </div>
 
-      {/* Right Side with the Rental Form */}
+      {/* Right Side Form */}
       <div className="scheduling-right">
-        {/* <h2>Schedule Your E-Bike Rental</h2> */}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -174,27 +175,26 @@ const SchedulingPage = () => {
             placeholder="Your Phone Number"
             required
           />
-          <div className="input-group">
-            <input
-              type="text"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              onFocus={(e) => (e.target.type = "date")}
-              placeholder="Select a date"
-              required
-            />
-          </div>
 
-          <div className="input-group">
-            <input
-              type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              onFocus={(e) => (e.target.type = "time")}
-              placeholder="Select a time"
-              required
-            />
-          </div>
+          {/* Custom date/time fields */}
+          <input
+            type={dateType}
+            value={date}
+            onFocus={() => setDateType("date")}
+            onBlur={() => date === "" && setDateType("text")}
+            onChange={(e) => setDate(e.target.value)}
+            placeholder="Select a date"
+            required
+          />
+          <input
+            type={timeType}
+            value={time}
+            onFocus={() => setTimeType("time")}
+            onBlur={() => time === "" && setTimeType("text")}
+            onChange={(e) => setTime(e.target.value)}
+            placeholder="Select a time"
+            required
+          />
 
           <input
             type="number"
