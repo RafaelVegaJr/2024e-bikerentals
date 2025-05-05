@@ -99,20 +99,21 @@ const SchedulingPage = () => {
         <div
           style={{
             width: "100%",
-            maxHeight: "30vh",
-            minHeight: "180px",
-            overflow: "hidden",
+            maxWidth: "320px",
+            height: "auto",
+            marginTop: "10px",
+            marginBottom: "20px",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
           }}
         >
           <img
             src={Image1}
             alt="Aventon Soltera"
             style={{
-              width: "auto",
-              height: "100%",
+              width: "100%",
+              height: "auto",
+              maxHeight: "200px",
               objectFit: "contain",
             }}
           />
