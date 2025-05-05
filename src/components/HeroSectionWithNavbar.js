@@ -78,7 +78,7 @@ export default function HeroSectionWithNavbar() {
             </MDBNavbarToggler>
             <MDBCollapse
               navbar
-              show={showNav ? true : undefined}
+              show={showNav ? "show" : ""}
               className={`navbar-collapse ${showNav ? "show" : ""}`}
             >
               <MDBNavbarNav className="mb-2 mb-lg-0 justify-content-end">

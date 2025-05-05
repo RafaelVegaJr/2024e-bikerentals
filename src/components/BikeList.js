@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axiosConfig";
 import "./BikeList.css";
-
-// Importing the single image for Hybrid Bike
-import Image1 from "../images/Image17.png";
+import Image1 from "../images/Image17.png"; // Single image for E-Bike
 
 const BikeList = () => {
   const [bike, setBike] = useState(null);
@@ -22,7 +20,11 @@ const BikeList = () => {
 
   const handleBookNow = () => {
     if (bike) {
+      // Navigate first
       navigate(`/schedule/${bike.id}`, { state: { bike } });
+
+      // Then scroll to top (forces it regardless of saved scroll position)
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
   };
 
