@@ -20,11 +20,12 @@ const BikeList = () => {
 
   const handleBookNow = () => {
     if (bike) {
-      // Navigate first
       navigate(`/schedule/${bike.id}`, { state: { bike } });
 
-      // Then scroll to top (forces it regardless of saved scroll position)
-      window.scrollTo({ top: 0, behavior: "instant" });
+      // Force scroll to top after brief delay
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "instant" }); // or "auto"
+      }, 50);
     }
   };
 
@@ -37,7 +38,7 @@ const BikeList = () => {
           <p>{bike.description}</p>
           <p>Price: ${bike.price}/hour</p>
           <button className="btn btn-primary" onClick={handleBookNow}>
-            Book Now
+            Rent Me
           </button>
         </div>
       )}
