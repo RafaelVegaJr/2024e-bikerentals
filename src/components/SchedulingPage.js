@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -6,15 +6,16 @@ import "./SchedulingPage.css";
 import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
-  const bikeImgRef = useRef(null);
-
   useEffect(() => {
-    // Delay scroll until after layout paint and image load
-    const timeout = setTimeout(() => {
+    const scrollToTop = () =>
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    }, 200); // wait for layout shift to finish
 
-    return () => clearTimeout(timeout);
+    scrollToTop();
+    setTimeout(scrollToTop, 200);
+    setTimeout(scrollToTop, 500);
+    setTimeout(scrollToTop, 800); // Final nuke
+
+    return () => {};
   }, []);
 
   const { bikeId } = useParams();
@@ -95,12 +96,18 @@ const SchedulingPage = () => {
 
       {/* Left Side with Bike Image and Specs Toggle */}
       <div className="scheduling-left">
-        <img
-          ref={bikeImgRef}
-          src={Image1}
-          alt="Aventon Soltera"
-          className="bike-image"
-        />
+        <div style={{ width: "100%", height: "202px", overflow: "hidden" }}>
+          <img
+            src={Image1}
+            alt="Aventon Soltera"
+            style={{
+              height: "100%",
+              objectFit: "contain",
+              display: "block",
+              margin: "0 auto",
+            }}
+          />
+        </div>
 
         <button className="spec-btn" onClick={() => setShowSpecs(!showSpecs)}>
           {showSpecs ? "Hide Specs" : "View Specs"}

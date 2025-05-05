@@ -24,10 +24,6 @@ const BikeList = () => {
 
     if (bike) {
       navigate(`/schedule/${bike.id}`, { state: { bike } });
-
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "auto" });
-      }, 100);
     }
   };
 
