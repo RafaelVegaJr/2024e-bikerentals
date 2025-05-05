@@ -29,8 +29,6 @@ const SchedulingPage = () => {
   const [dropOffCity, setDropOffCity] = useState("");
   const [rentalDuration, setRentalDuration] = useState(""); // start empty
   const [showSpecs, setShowSpecs] = useState(false);
-  const [dateType, setDateType] = useState("text");
-  const [timeType, setTimeType] = useState("text");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
