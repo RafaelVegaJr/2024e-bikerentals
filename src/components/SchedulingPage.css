@@ -1,18 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  overflow-y: auto;
+  margin: 0;
+}
+
 .scheduling-wrapper {
   display: flex;
   min-height: 100vh;
-  font-family: "Poppins", sans-serif;
   flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #00c896 20%, #00d4ff 60%, #ffffff 100%);
 }
 
-body {
-  overflow-y: auto;
+/* Blur blob for dreamy effect */
+.scheduling-wrapper::before {
+  content: "";
+  position: absolute;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(
+    circle at 25% 50%,
+    #00c896 20%,
+    #00d4ff 50%,
+    #ffffff 100%
+  );
+  filter: blur(140px);
+  opacity: 0.6;
+  top: -20%;
+  left: -30%;
+  z-index: 0;
 }
 
+/* Left Side (Bike + Specs) */
 .scheduling-left {
   flex: 1;
-  background: linear-gradient(to top right, #00c896, #00d4ff);
-  clip-path: ellipse(80% 100% at 0% 50%);
+  background: transparent;
   color: white;
   display: flex;
   flex-direction: column;
@@ -20,6 +45,8 @@ body {
   align-items: center;
   padding: 40px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .scheduling-left h2 {
@@ -32,13 +59,41 @@ body {
   line-height: 1.4;
 }
 
+.bike-image {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  transform: translateX(-40px);
+}
+
+.spec-btn {
+  padding: 12px 24px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+  margin-top: 20px;
+}
+
+.spec-btn:hover {
+  background: white;
+  color: #00c896;
+}
+
+/* Right Side (Form) */
 .scheduling-right {
   flex: 1;
-  background: #fff;
+  background: transparent;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 form {
@@ -56,45 +111,52 @@ select {
   font-size: 1rem;
   font-weight: 500;
   color: #333;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-button {
-  all: unset;
-}
-
-/* Submit button only */
+/* Schedule Button (matches Sign Up/Login) */
 .scheduling-right button[type="submit"] {
-  padding: 14px;
+  position: relative;
+  padding: 12px;
   background: linear-gradient(to right, #00c896, #00d4ff);
   color: white;
   border: none;
   border-radius: 30px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+  z-index: 1;
+}
+
+.scheduling-right button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(
+    circle at 20% 50%,
+    #00c896 20%,
+    #00d4ff 60%,
+    #ffffff 100%
+  );
+  filter: blur(40px);
+  opacity: 0.6;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
 
 .scheduling-right button[type="submit"]:hover {
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 212, 255, 0.35);
 }
 
-/* Spec Button */
-.spec-btn {
-  padding: 12px 24px;
-  border: 2px solid white;
-  background: transparent;
-  color: white;
-  border-radius: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.spec-btn:hover {
-  background: white;
-  color: #00c896;
+.scheduling-right button[type="submit"]:hover::before {
+  opacity: 1;
 }
 
 /* Back button */
@@ -116,7 +178,7 @@ button {
   text-decoration: underline;
 }
 
-/* Centering the submit button */
+/* Button container alignment */
 .button-container {
   display: flex;
   justify-content: center;
@@ -128,21 +190,7 @@ button {
   max-width: 300px;
 }
 
-/* Bike image tweaks */
-.bike-image {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
-  transform: translateX(-40px);
-}
-form input,
-form select,
-form .button-container button {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
   .scheduling-wrapper {
     flex-direction: column;
