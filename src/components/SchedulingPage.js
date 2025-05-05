@@ -178,19 +178,16 @@ const SchedulingPage = () => {
 
           {/* Custom date/time fields */}
           <input
-            type={dateType}
+            type="date"
             value={date}
-            onFocus={() => setDateType("date")}
-            onBlur={() => date === "" && setDateType("text")}
             onChange={(e) => setDate(e.target.value)}
             placeholder="Select a date"
             required
           />
+
           <input
-            type={timeType}
+            type="time"
             value={time}
-            onFocus={() => setTimeType("time")}
-            onBlur={() => time === "" && setTimeType("text")}
             onChange={(e) => setTime(e.target.value)}
             placeholder="Select a time"
             required
