@@ -174,23 +174,27 @@ const SchedulingPage = () => {
             placeholder="Your Phone Number"
             required
           />
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Select a date" // ✅ iOS may ignore this, see below
-            onFocus={(e) => (e.target.type = "date")}
-            required
-          />
+          <div className="input-group">
+            <input
+              type="text"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              onFocus={(e) => (e.target.type = "date")}
+              placeholder="Select a date"
+              required
+            />
+          </div>
 
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            placeholder="Select a time" // ✅ again, iOS may not show this
-            onFocus={(e) => (e.target.type = "time")}
-            required
-          />
+          <div className="input-group">
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              onFocus={(e) => (e.target.type = "time")}
+              placeholder="Select a time"
+              required
+            />
+          </div>
 
           <input
             type="number"
