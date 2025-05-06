@@ -102,30 +102,33 @@ form {
 
 /* Login Button Matching Sign Up */
 .login-btn {
-  position: relative;
-  padding: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 10px;
   background: linear-gradient(to right, #00c896, #00d4ff);
   color: white;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
   border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
-  transition: 0.3s ease;
   box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
-  z-index: 1;
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .login-btn::before {
   content: "";
   position: absolute;
-  top: -30%;
-  left: -30%;
-  width: 160%;
-  height: 160%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(circle at center, #00d4ff, #00c896);
-  filter: blur(40px);
-  opacity: 0.6;
+  filter: blur(20px);
+  opacity: 0.4;
   z-index: -1;
   transition: opacity 0.3s ease;
 }
@@ -136,7 +139,7 @@ form {
 }
 
 .login-btn:hover::before {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 /* Other Styles */
@@ -208,4 +211,62 @@ form {
 
 .input-group input {
   border-radius: 30px !important;
+}
+form .login-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border-radius: 30px;
+  background: linear-gradient(to right, #00c896, #00d4ff);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+form .login-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #00d4ff, #00c896);
+  filter: blur(20px);
+  opacity: 0.4;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+form .login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.45);
+}
+
+form .login-btn:hover::before {
+  opacity: 0.8;
+}
+.form-inner .forgot-password {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.forgot-password {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+.input-group.forgot-password {
+  text-align: right;
+  margin-top: 6px;
+  margin-bottom: 12px;
 }

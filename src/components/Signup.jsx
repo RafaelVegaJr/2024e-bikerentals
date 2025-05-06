@@ -20,12 +20,11 @@ const SignupForm = () => {
     try {
       const payload = {
         ...formData,
-        full_name: formData.fullName, // rename for backend
+        full_name: formData.fullName,
       };
-      delete payload.fullName; // remove the camelCase version
+      delete payload.fullName;
 
       const response = await axiosInstance.post("/api/users/signup", payload);
-
       console.log("User created:", response.data);
     } catch (error) {
       console.error("Signup error:", error.response?.data || error.message);
@@ -48,73 +47,73 @@ const SignupForm = () => {
       <div className="signup-right">
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Your Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          {showModal && (
-            <div className="modal" onClick={() => setShowModal(false)}>
-              <div
-                className="modal-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <span className="close" onClick={() => setShowModal(false)}>
-                  &times;
-                </span>
-                <h2>How Our Service Works</h2>
-                <p>
-                  Rent or schedule an e-bike delivery in seconds. Our rides are
-                  eco-friendly, fast, and easy to access. Just sign up, choose
-                  your ride plan, and start moving!
-                </p>
-              </div>
+          <div className="form-inner">
+            <div className="input-group">
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Your Full Name"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
             </div>
-          )}
 
-          <div className="input-group">
-            <input
-              type="text"
-              name="username"
-              placeholder="Your Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
+            <div className="input-group">
+              <input
+                type="text"
+                name="username"
+                placeholder="Your Username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <input
+                type="password"
+                name="password"
+                placeholder="Your Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="primary-signup-btn">
+              Sign Up
+            </button>
           </div>
-
-          <div className="input-group">
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="input-group">
-            <input
-              type="password"
-              name="password"
-              placeholder="Your Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit" className="signup-btn">
-            Sign Up
-          </button>
         </form>
       </div>
+
+      {showModal && (
+        <div className="modal" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={() => setShowModal(false)}>
+              &times;
+            </span>
+            <h2>How Our Service Works</h2>
+            <p>
+              Rent or schedule an e-bike delivery in seconds. Our rides are
+              eco-friendly, fast, and easy to access. Just sign up, choose your
+              ride plan, and start moving!
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

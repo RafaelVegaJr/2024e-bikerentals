@@ -139,41 +139,50 @@ form {
 
 /* Sign Up button with blur glow */
 .signup-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  margin: 5px 0px 15px;
+  border-radius: 30px;
+  background: linear-gradient(to right, #00c896, #00d4ff);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+  transition: 0.3s ease;
   position: relative;
-  padding: 12px;
+  overflow: hidden;
+}
+.primary-signup-btn {
   background: linear-gradient(to right, #00c896, #00d4ff);
   color: white;
   border: none;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
   border-radius: 30px;
   font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
-  z-index: 1;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35); /* dreamy blur */
 }
 
-.signup-btn::before {
-  pointer-events: none;
-  content: "";
-  position: absolute;
-  top: -30%;
-  left: -30%;
-  width: 160%;
-  height: 160%;
-  background: radial-gradient(circle at center, #00d4ff, #00c896);
-  filter: blur(40px);
-  opacity: 0.6;
-  z-index: -1;
-  transition: opacity 0.3s ease;
-}
-
-.signup-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.45);
+.primary-signup-btn:hover {
+  background-color: #e0e9f9;
 }
 
 .signup-btn:hover::before {
   opacity: 1;
+}
+.form-inner {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 /* Mobile view adjustments (merged into one block) */

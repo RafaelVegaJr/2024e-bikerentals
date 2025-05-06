@@ -38,34 +38,40 @@ const Login = () => {
         <h2>Login</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
-          <div className="input-group">
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <div className="form-inner">
+            <div className="input-group">
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <input
+                type="password"
+                placeholder="Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-group forgot-password">
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </div>
+
+            <button type="submit" className="login-btn">
+              Log In
+            </button>
           </div>
-          <div className="input-group">
-            <input
-              type="password"
-              placeholder="Your Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="forgot-password">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-          <button type="submit" className="login-btn">
-            Log In
-          </button>
         </form>
+
         <p>
           Don’t have an account?{" "}
-          <Link to="/register" className="login-nav-link">
+          <Link to="/signup" className="login-nav-link">
             Sign up
           </Link>
         </p>
