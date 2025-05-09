@@ -5,14 +5,19 @@ const NavbarLinks = () => {
   const location = useLocation();
 
   const scrollToBikes = (e) => {
-    if (location.pathname === "/" || location.pathname === "/home") {
+    console.log("🚲 scrollToBikes triggered");
+
+    if (
+      (location.pathname === "/" || location.pathname === "/home") &&
+      e.target.closest(".scroll-to-bikes")
+    ) {
       e.preventDefault();
       const bikes = document.getElementById("bike-list");
       if (bikes) {
+        console.log("📍 Scrolling to #bike-list");
         bikes.scrollIntoView({ behavior: "smooth" });
       }
     }
-    // If not on Home, let the link do normal behavior (if it's a real page link)
   };
 
   return (
@@ -26,7 +31,11 @@ const NavbarLinks = () => {
       <a className="nav-link" href="/register">
         Register
       </a>
-      <a className="nav-link" href="#bike-list" onClick={scrollToBikes}>
+      <a
+        href="/home"
+        className="nav-link scroll-to-bikes"
+        onClick={scrollToBikes}
+      >
         Book Now
       </a>
     </>

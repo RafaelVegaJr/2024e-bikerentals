@@ -98,7 +98,7 @@ const SchedulingPage = () => {
         <div
           style={{
             width: "100%",
-            maxWidth: "320px",
+            maxWidth: "520px",
             height: "auto",
             marginTop: "10px",
             marginBottom: "20px",
@@ -112,7 +112,7 @@ const SchedulingPage = () => {
             style={{
               width: "100%",
               height: "auto",
-              maxHeight: "200px",
+              maxHeight: "500px",
               objectFit: "contain",
             }}
           />

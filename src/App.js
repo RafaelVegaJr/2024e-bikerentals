@@ -12,7 +12,6 @@ import ConfirmationPage from "./components/ConfirmationPage";
 import PaymentPage from "./components/PaymentPage";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import ScrollToTop from "./components/ScrollToTop";
 import ScrollResetOnNavigation from "./components/ScrollResetOnNavigation";
 import TestScrollPage from "./components/TestScrollPage";
 
@@ -26,7 +25,6 @@ function App() {
   return (
     <div className="App">
       <ScrollResetOnNavigation />
-      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/home" />} />

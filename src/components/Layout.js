@@ -1,23 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
 import HeroSectionWithNavbar from "./HeroSectionWithNavbar";
 import "./Layout.css";
 import { Button } from "@mui/material";
+import ScrollToTop from "./ScrollToTop";
 
 const Layout = () => {
   const location = useLocation();
-  const authPages = ["/signup", "/login"]; // pages where you show Home button
+  const authPages = ["/signup", "/login"];
   const showHomeButton = authPages.includes(location.pathname);
-  const showHeroSection = location.pathname === "/home"; // only on homepage
-
-  // ✅ Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [location.pathname]);
+  const showHeroSection = location.pathname === "/home";
 
   return (
     <div className="App" style={{ position: "relative", minHeight: "100vh" }}>
-      {/* Home Button on auth pages */}
+      {/* ✅ ScrollToTop runs here after layout and content have mounted */}
+      <ScrollToTop />
+
       {showHomeButton && (
         <div
           style={{
@@ -43,7 +41,6 @@ const Layout = () => {
         </div>
       )}
 
-      {/* Hero Section ONLY on homepage */}
       {showHeroSection && <HeroSectionWithNavbar />}
 
       <div className="content">

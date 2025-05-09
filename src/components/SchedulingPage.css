@@ -12,7 +12,7 @@ body {
   flex-wrap: wrap;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(to right, #00c896 20%, #00d4ff 60%, #ffffff 100%);
+  background: linear-gradient(to right, #ed4264, #ffedbc);
 }
 
 /* Blur blob for dreamy effect */
@@ -21,12 +21,7 @@ body {
   position: absolute;
   width: 160%;
   height: 160%;
-  background: radial-gradient(
-    circle at 25% 50%,
-    #00c896 20%,
-    #00d4ff 50%,
-    #ffffff 100%
-  );
+  background: radial-gradient(circle at 25% 50%, #ed4264, #ffedbc);
   filter: blur(140px);
   opacity: 0.6;
   top: -20%;
@@ -123,7 +118,7 @@ form {
 .scheduling-right button[type="submit"] {
   position: relative;
   padding: 12px;
-  background: linear-gradient(to right, #00c896, #00d4ff);
+  background: linear-gradient(to right, #ed4264, #ffedbc);
   color: white;
   border: none;
   border-radius: 30px;
@@ -131,7 +126,7 @@ form {
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s ease;
-  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.35);
+
   z-index: 1;
 }
 
@@ -142,20 +137,21 @@ form {
   left: -30%;
   width: 160%;
   height: 160%;
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle at 20% 50%,
     #00c896 20%,
     #00d4ff 60%,
     #ffffff 100%
-  );
+  ); */
   filter: blur(40px);
   opacity: 0.6;
   z-index: -1;
   transition: opacity 0.3s ease;
 }
 
-.scheduling-right button[type="submit"]:hover {
-  box-shadow: 0 6px 25px rgba(0, 212, 255, 0.35);
+.scheduling-right button[type="submit"] {
+  background: linear-gradient(to right, #ed4264, #ffedbc);
+  box-shadow: 0 8px 24px rgba(237, 66, 100, 0.35); /* Optional: softened shadow */
 }
 
 .scheduling-right button[type="submit"]:hover::before {

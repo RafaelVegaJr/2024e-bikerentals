@@ -19,8 +19,9 @@ const BikeList = () => {
   }, []);
 
   const handleBookNow = (e) => {
-    e.preventDefault(); // stops any anchor-related behavior
-    e.stopPropagation(); // stops bubbling up
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("🛴 Rent Me clicked — navigating to schedule");
 
     if (bike) {
       navigate(`/schedule/${bike.id}`, { state: { bike } });
