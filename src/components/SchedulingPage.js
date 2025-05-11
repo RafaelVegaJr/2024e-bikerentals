@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -7,13 +7,11 @@ import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
   useEffect(() => {
-    const scrollToTop = () =>
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-
-    scrollToTop();
-    setTimeout(scrollToTop, 200);
-    setTimeout(scrollToTop, 500);
-    setTimeout(scrollToTop, 800);
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.activeElement.blur();
   }, []);
 
   const { bikeId } = useParams();
@@ -99,7 +97,7 @@ const SchedulingPage = () => {
           style={{
             width: "100%",
             maxWidth: "520px",
-            height: "auto",
+            minHeight: "300px", // ✅ stabilizes layout
             marginTop: "10px",
             marginBottom: "20px",
             display: "flex",

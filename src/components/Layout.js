@@ -3,7 +3,6 @@ import { Outlet, useLocation, Link } from "react-router-dom";
 import HeroSectionWithNavbar from "./HeroSectionWithNavbar";
 import "./Layout.css";
 import { Button } from "@mui/material";
-import ScrollToTop from "./ScrollToTop";
 
 const Layout = () => {
   const location = useLocation();
@@ -14,7 +13,6 @@ const Layout = () => {
   return (
     <div className="App" style={{ position: "relative", minHeight: "100vh" }}>
       {/* ✅ ScrollToTop runs here after layout and content have mounted */}
-      <ScrollToTop />
 
       {showHomeButton && (
         <div

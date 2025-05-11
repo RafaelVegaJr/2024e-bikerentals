@@ -223,3 +223,6 @@ input[type="time"] {
   width: 100%;
   box-sizing: border-box;
 }
+.bike-image-container {
+  min-height: 300px; /* or same as expected image height */
+}

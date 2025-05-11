@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "./SignUp.css";
 import axiosInstance from "../axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,6 +29,11 @@ const SignupForm = () => {
 
       const response = await axiosInstance.post("/api/users/signup", payload);
       console.log("User created:", response.data);
+
+      setSuccessMessage(
+        "Account successfully created! Redirecting to login..."
+      );
+      setTimeout(() => navigate("/login"), 2000); // redirect after 2 seconds
     } catch (error) {
       console.error("Signup error:", error.response?.data || error.message);
       alert(error.response?.data?.error || "Signup failed");
@@ -95,6 +103,11 @@ const SignupForm = () => {
             <button type="submit" className="primary-signup-btn">
               Sign Up
             </button>
+            {successMessage && (
+              <p style={{ color: "#28a745", marginTop: "1rem" }}>
+                {successMessage}
+              </p>
+            )}
           </div>
         </form>
       </div>

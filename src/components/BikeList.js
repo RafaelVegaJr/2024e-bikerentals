@@ -36,7 +36,7 @@ const BikeList = () => {
           <h2>{bike.name}</h2>
           <p>{bike.description}</p>
           <p>Price: ${bike.price}/hour</p>
-          <button className="btn btn-primary" onClick={handleBookNow}>
+          <button className="btn btn-dark" onClick={handleBookNow}>
             Rent Me
           </button>
         </div>
