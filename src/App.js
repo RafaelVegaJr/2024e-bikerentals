@@ -15,7 +15,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import ScrollResetOnNavigation from "./components/ScrollResetOnNavigation";
 import TestScrollPage from "./components/TestScrollPage";
 
-import Signup from "./components/Signup"; // ✅ match the actual filename
+import Signup from "./components/Signup";
 
 const stripePromise = loadStripe(
   "pk_live_51PpcpTI24ZLxTROyGUafGdbtnQ0XCoQtpwuSDBq2N12FMViZQzJ7XQoqIc16360Bc54Nip3WTWcj0lSBqFhx2LDY007yF04Enn"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDeliveryFee } from "../utils/deliveryUtils";
 import axiosInstance from "../axiosConfig";
@@ -6,14 +6,7 @@ import "./SchedulingPage.css";
 import Image1 from "../images/Image17.png";
 
 const SchedulingPage = () => {
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, []);
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-    document.activeElement.blur();
-  }, []);
-
+  const [showForm, setShowForm] = useState(false);
   const { bikeId } = useParams();
   const numericBikeId = Number(bikeId);
   const navigate = useNavigate();
@@ -27,6 +20,12 @@ const SchedulingPage = () => {
   const [dropOffCity, setDropOffCity] = useState("");
   const [rentalDuration, setRentalDuration] = useState(""); // start empty
   const [showSpecs, setShowSpecs] = useState(false);
+
+  // ⏳ Delay rendering the form to prevent mobile auto-scroll
+  useEffect(() => {
+    const timeout = setTimeout(() => setShowForm(true), 150);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -97,7 +96,7 @@ const SchedulingPage = () => {
           style={{
             width: "100%",
             maxWidth: "520px",
-            minHeight: "300px", // ✅ stabilizes layout
+            minHeight: "300px",
             marginTop: "10px",
             marginBottom: "20px",
             display: "flex",
@@ -149,77 +148,75 @@ const SchedulingPage = () => {
 
       {/* Right Side Form */}
       <div className="scheduling-right">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your Name"
-            required
-          />
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Your Address"
-            required
-          />
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Your Phone Number"
-            required
-          />
-
-          {/* Custom date/time fields */}
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Select a date"
-            required
-          />
-
-          <input
-            type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            placeholder="Select a time"
-            required
-          />
-
-          <input
-            type="number"
-            min="1"
-            value={rentalDuration}
-            onChange={(e) => setRentalDuration(e.target.value)}
-            placeholder="Rental Duration (hours)"
-            required
-          />
-          <select
-            value={dropOffCity}
-            onChange={(e) => setDropOffCity(e.target.value)}
-            required
-          >
-            <option value="">Select a city</option>
-            <option value="Indio">Indio</option>
-            <option value="Coachella">Coachella</option>
-            <option value="Palm Desert">Palm Desert</option>
-            <option value="Cathedral City">Cathedral City</option>
-            <option value="Palm Springs">Palm Springs</option>
-          </select>
-          <input
-            type="text"
-            value={dropOffAddress}
-            onChange={(e) => setDropOffAddress(e.target.value)}
-            placeholder="Drop-off Address"
-            required
-          />
-          <div className="button-container">
-            <button type="submit">Schedule Rental</button>
-          </div>
-        </form>
+        {showForm && (
+          <form className="fade-in" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your Name"
+              required
+              autoComplete="off"
+              inputMode="none"
+            />
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Your Address"
+              required
+            />
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Your Phone Number"
+              required
+            />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+            <input
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              min="1"
+              value={rentalDuration}
+              onChange={(e) => setRentalDuration(e.target.value)}
+              placeholder="Rental Duration (hours)"
+              required
+            />
+            <select
+              value={dropOffCity}
+              onChange={(e) => setDropOffCity(e.target.value)}
+              required
+            >
+              <option value="">Select a city</option>
+              <option value="Indio">Indio</option>
+              <option value="Coachella">Coachella</option>
+              <option value="Palm Desert">Palm Desert</option>
+              <option value="Cathedral City">Cathedral City</option>
+              <option value="Palm Springs">Palm Springs</option>
+            </select>
+            <input
+              type="text"
+              value={dropOffAddress}
+              onChange={(e) => setDropOffAddress(e.target.value)}
+              placeholder="Drop-off Address"
+              required
+            />
+            <div className="button-container">
+              <button type="submit">Schedule Rental</button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,19 @@
-import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useLayoutEffect } from "react";
 
 const ScrollResetOnNavigation = () => {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-    document.activeElement.blur(); // Prevents scroll caused by auto-focused input
+    // Blur active element immediately
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
+
+    // Scroll to top with animation frame to override mobile jump
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
   }, [pathname]);
 
   return null;
