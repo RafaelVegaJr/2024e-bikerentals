@@ -13,6 +13,16 @@ In the project directory, you can run:
 - `npm test` – Runs the test suite in watch mode
 - `npm run eject` – Ejects config files (only if needed)
 
+## 🛠 Requirements
+
+- **Node.js v16.x** – Required due to compatibility with some project dependencies  
+  Use [NVM](https://github.com/coreybutler/nvm-windows) to manage Node versions easily:
+
+```bash
+nvm install 16
+nvm use 16
+
+
 ---
 
 ## 💻 Tech Stack
@@ -76,3 +86,4 @@ In the project directory, you can run:
 - [Express.js Guide](https://expressjs.com/)
 - [Sequelize Docs](https://sequelize.org/)
 - [MySQL Documentation](https://dev.mysql.com/doc/)
+```
