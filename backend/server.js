@@ -24,6 +24,7 @@ app.use(
       "http://localhost:3000",
       "https://electrikcruise.netlify.app",
       "https://electrikcruise.com",
+      "http://electrikcruise.s3-website.us-east-2.amazonaws.com",
     ],
     credentials: true,
   })

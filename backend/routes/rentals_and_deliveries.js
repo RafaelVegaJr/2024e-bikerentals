@@ -9,7 +9,11 @@ const moment = require("moment");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const sendEmailNotification = require("../utils/sendEmail");
 
+console.log("🔍 Rental endpoint hit — running DB:", process.env.DB_NAME);
 console.log("Rentals and Deliveries Router Loaded");
+console.log("🔍 Using DB:", process.env.DB_NAME);
+console.log("Host:", process.env.DB_HOST);
+console.log("User:", process.env.DB_USER);
 
 // Route for scheduling rentals and deliveries
 
@@ -59,7 +63,8 @@ router.post("/", async (req, res) => {
     const rentalEndDate = new Date(rentalStartDate);
     rentalEndDate.setHours(rentalEndDate.getHours() + parseInt(rentalHours));
     const rentalCostPerHour = 10;
-    const totalRentalCost = rentalCostPerHour * rentalHours;
+    const rentalCost = rentalCostPerHour * rentalHours;
+    const fullTotalPrice = rentalCost + Number(deliveryFee || 0);
 
     // ✅ Combine date + time for validation
     const combinedDeliveryDateTime = moment(
@@ -77,7 +82,8 @@ router.post("/", async (req, res) => {
       bike_id: selectedBike.id,
       rental_start_date: rentalStartDate,
       rental_end_date: rentalEndDate,
-      total_price: totalRentalCost,
+      rental_price: rentalCost, // Only the bike rental portion (e.g., $10)
+      total_price: fullTotalPrice, // Total including delivery fee (e.g., $18)
       status: "scheduled",
       rentalDays: parseInt(rentalHours),
       name,
@@ -112,7 +118,7 @@ router.post("/", async (req, res) => {
       rentalEndDate,
       dropOffAddress,
       dropOffCity,
-      totalRentalCost,
+      fullTotalPrice,
       deliveryFee,
       rentalId: rental.id,
     };

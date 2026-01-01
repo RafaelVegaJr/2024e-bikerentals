@@ -18,6 +18,11 @@ const Rental = sequelize.define("Rental", {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  rental_price: {
+    // ⬅️ NEW FIELD HERE
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+  },
   total_price: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,

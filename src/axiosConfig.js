@@ -4,8 +4,11 @@ import Cookies from "js-cookie";
 
 const baseURL =
   process.env.NODE_ENV === "production"
-    ? "https://two024e-bikerentals.onrender.com" // your deployed backend
-    : "http://localhost:5000"; // local dev backend
+    ? "https://two024e-bikerentals.onrender.com"
+    : "http://localhost:5000";
+
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("AXIOS BASE URL:", baseURL);
 
 const axiosInstance = axios.create({
   baseURL,
